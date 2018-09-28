@@ -1,0 +1,10 @@
+﻿# Hidden files
+.*
+!.gitignore
+!.editorconfig
+
+# Built files
+build/
+out/
+*.jar
+*.class
