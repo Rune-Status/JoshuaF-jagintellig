@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'idea'
     id 'org.jetbrains.intellij' version '0.3.11'
     id 'org.jetbrains.kotlin.jvm' version '1.2.51'
 }
@@ -28,6 +29,7 @@ compileTestKotlin {
 
 intellij {
     version '2018.2.4'
+    pluginName 'jagintellij'
 }
 
 patchPluginXml {
