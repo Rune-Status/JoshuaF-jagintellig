@@ -1,0 +1,20 @@
+{
+  parserClass="com.neptune.jagintellij.parser.JagConfigParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="JagConfig"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.neptune.jagintellij.psi"
+  psiImplPackage="com.neptune.jagintellij.psi.impl"
+
+  elementTypeHolderClass="com.neptune.jagintellij.psi.JagConfigTypes"
+  elementTypeClass="com.neptune.jagintellij.psi.JagConfigElementType"
+  tokenTypeClass="com.neptune.jagintellij.psi.JagConfigTokenType"
+}
+
+jagConfigFile ::= item_*
+
+private item_ ::= (property|COMMENT|CRLF)
+
+property ::= (KEY? SEPARATOR VALUE?) | KEY

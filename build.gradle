@@ -3,7 +3,12 @@ plugins {
     id 'idea'
     id 'org.jetbrains.intellij' version '0.3.11'
     id 'org.jetbrains.kotlin.jvm' version '1.2.51'
+    id "org.jetbrains.grammarkit" version "2018.2"
 }
+
+import org.jetbrains.grammarkit.tasks.*
+
+def genRoot = file('src/main/gen')
 
 group 'com.neptune'
 version '1.0-SNAPSHOT'
@@ -19,6 +24,9 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
+// add the generated files to the java source set
+sourceSets.main.java.srcDirs += genRoot
+
 compileKotlin {
     kotlinOptions.jvmTarget = "1.6"
 }
@@ -32,6 +40,12 @@ intellij {
     pluginName 'jagintellij'
 }
 
+idea {
+    module {
+        generatedSourceDirs += genRoot
+    }
+}
+
 patchPluginXml {
     changeNotes """
       Add change notes here.<br>
@@ -40,4 +54,44 @@ patchPluginXml {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '4.8.1'
+}
+
+task generateJagConfigParser(type: GenerateParser) {
+    // source bnf file
+    source = "src/main/kotlin/com/neptune/jagintellij/JagConfig.bnf"
+
+    // optional, task-specific root for the generated files. Default: none
+    targetRoot = 'src/main/gen'
+
+    // path to a parser file, relative to the targetRoot
+    pathToParser = '/com/neptune/jagintellij/parser/JagConfigParserGenerated.java'
+
+    // path to a directory with generated psi files, relative to the targetRoot
+    pathToPsiRoot = '/com/neptune/jagintellij/psi'
+
+    // if set, plugin will remove a parser output file and psi output directory before generating new ones. Default: false
+    purgeOldFiles = true
+}
+
+task generateJagConfigLexer(type: GenerateLexer) {
+    dependsOn generateJagConfigParser
+
+    // source flex file
+    source = "src/main/kotlin/com/neptune/jagintellij/JagConfig.flex"
+
+    // target directory for lexer
+    targetDir = "src/main/gen/com/neptune/jagintellij/lexer/"
+
+    // target classname, target file will be targetDir/targetClass.java
+    targetClass = "JagConfigLexer"
+
+    // optional, path to the task-specific skeleton file. Default: none
+//    skeleton = '/some/specific/skeleton'
+
+    // if set, plugin will remove a lexer output file before generating new one. Default: false
+    purgeOldFiles = true
+}
+
+compileKotlin {
+    dependsOn generateJagConfigLexer
 }

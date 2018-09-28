@@ -8,3 +8,6 @@ build/
 out/
 *.jar
 *.class
+
+# Generated files
+src/main/gen

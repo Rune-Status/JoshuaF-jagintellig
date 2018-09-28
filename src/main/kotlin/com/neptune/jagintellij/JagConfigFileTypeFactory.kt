@@ -12,7 +12,7 @@ class JagConfigFileTypeFactory : FileTypeFactory() {
     }
 
     override fun createFileTypes(consumer: FileTypeConsumer) {
-        consumer.consume(JagConfigFileType, FILE_TYPES.joinToString(separator = ";"))
+        consumer.consume(JagConfigFileType.INSTANCE, FILE_TYPES.joinToString(separator = ";"))
     }
 
 }

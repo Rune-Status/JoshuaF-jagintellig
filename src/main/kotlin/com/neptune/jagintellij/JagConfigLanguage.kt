@@ -2,4 +2,16 @@ package com.neptune.jagintellij
 
 import com.intellij.lang.Language
 
-object JagConfigLanguage : Language("Jagex Config")
+class JagConfigLanguage : Language(NAME) {
+
+    companion object {
+
+        @JvmField
+        val INSTANCE = JagConfigLanguage()
+
+        @JvmField
+        val NAME = "JagConfig"
+
+    }
+
+}
