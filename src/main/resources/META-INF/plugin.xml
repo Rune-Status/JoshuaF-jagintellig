@@ -17,6 +17,7 @@
         <fileTypeFactory implementation="com.neptune.jagintellij.JagConfigFileTypeFactory"/>
         <lang.parserDefinition language="JagConfig" implementationClass="com.neptune.jagintellij.JagConfigParserDefinition"/>
         <lang.syntaxHighlighterFactory language="JagConfig" implementationClass="com.neptune.jagintellij.JagConfigSyntaxHighlighterFactory"/>
+        <colorSettingsPage implementation="com.neptune.jagintellij.JagConfigColorSettingsPage"/>
     </extensions>
 
     <actions>

@@ -23,12 +23,15 @@ VALUE_CHARACTER=[^\n\f\\] | "\\"{CRLF} | "\\".
 END_OF_LINE_COMMENT=("#"|"!")[^\r\n]*
 SEPARATOR=[:=]
 KEY_CHARACTER=[^:=\ \n\t\f\\] | "\\ "
+IDENTIFIER=[a-zA-Z_]([a-zA-Z_0-9])*
 
 %state WAITING_VALUE
 
 %%
 
 <YYINITIAL> {END_OF_LINE_COMMENT}                           { yybegin(YYINITIAL); return JagConfigTypes.COMMENT; }
+
+<YYINITIAL> {IDENTIFIER}                                    { yybegin(YYINITIAL); return JagConfigTypes.IDENTIFIER; }
 
 <YYINITIAL> {KEY_CHARACTER}+                                { yybegin(YYINITIAL); return JagConfigTypes.KEY; }
 
