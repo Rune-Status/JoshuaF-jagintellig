@@ -28,13 +28,13 @@ class ClientScriptSyntaxHighlighter : SyntaxHighlighterBase() {
 
         private val EMPTY_KEYS = arrayOf<TextAttributesKey>()
 
-        val SCRIPT_HEADER = createTextAttributesKey("CLIENTSCRIPT_HEADER", DefaultLanguageHighlighterColors.IDENTIFIER)
+        val SCRIPT_HEADER = createTextAttributesKey("CLIENTSCRIPT_HEADER", DefaultLanguageHighlighterColors.FUNCTION_DECLARATION)
         val ID = createTextAttributesKey("CLIENTSCRIPT_ID", DefaultLanguageHighlighterColors.IDENTIFIER)
         val KEYWORD = createTextAttributesKey("CLIENTSCRIPT_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD)
-        val VAR = createTextAttributesKey("CLIENTSCRIPT_VAR", DefaultLanguageHighlighterColors.LOCAL_VARIABLE)
-        val GAME_VAR = createTextAttributesKey("CLIENTSCRIPT_GAME_VAR", DefaultLanguageHighlighterColors.LOCAL_VARIABLE)
+        val VAR = createTextAttributesKey("CLIENTSCRIPT_VAR", DefaultLanguageHighlighterColors.INSTANCE_FIELD)
+        val GAME_VAR = createTextAttributesKey("CLIENTSCRIPT_GAME_VAR", VAR)
         val CONSTANT_VAR = createTextAttributesKey("CLIENTSCRIPT_CONSTANT_VAR", VAR)
-        val CONSTANT_INT = createTextAttributesKey("CLIENTSCRIPT_CONSTANT_INT", KEYWORD)
+        val CONSTANT_INT = createTextAttributesKey("CLIENTSCRIPT_CONSTANT_INT", DefaultLanguageHighlighterColors.NUMBER)
         val STRING = createTextAttributesKey("CLIENTSCRIPT_STRING", DefaultLanguageHighlighterColors.STRING)
         val LINE_COMMENT = createTextAttributesKey("CLIENTSCRIPT_LINE_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT)
         val BLOCK_COMMENT = createTextAttributesKey("CLIENTSCRIPT_BLOCK_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT)
@@ -70,8 +70,17 @@ class ClientScriptSyntaxHighlighter : SyntaxHighlighterBase() {
             ClientScriptLexer.CONSTANT_VAR -> {
                 attrKey = CONSTANT_VAR
             }
-            ClientScriptLexer.INT -> {
+            ClientScriptLexer.INT,
+            ClientScriptLexer.COORD_GRID -> {
                 attrKey = CONSTANT_INT
+            }
+            in ClientScriptLexer.TYPEINT..ClientScriptLexer.TYPEBOOLEAN,
+            ClientScriptLexer.RETURN,
+            ClientScriptLexer.DEF_TYPE,
+            ClientScriptLexer.NULL,
+            ClientScriptLexer.TRUE,
+            ClientScriptLexer.FALSE -> {
+                attrKey = KEYWORD
             }
 //            ClientScriptLexer.VAR,
 //            ClientScriptLexer.WHILE,

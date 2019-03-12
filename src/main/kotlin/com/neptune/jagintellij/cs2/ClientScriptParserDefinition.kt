@@ -80,7 +80,7 @@ class ClientScriptParserDefinition : ParserDefinition {
             return ANTLRPsiNode(node)
         }
         return when (elType.ruleIndex) {
-            ClientScriptParser.RULE_scriptDeclaration -> ScriptSubTree(node, elType)
+            ClientScriptParser.RULE_script -> ScriptSubTree(node, elType)
 //            SampleLanguageParser.RULE_function -> return FunctionSubtree(node, elType)
 //            SampleLanguageParser.RULE_vardef -> return VardefSubtree(node, elType)
 //            SampleLanguageParser.RULE_formal_arg -> return ArgdefSubtree(node, elType)

@@ -2,12 +2,12 @@ lexer grammar ClientScriptLexer;
 
 // Types
 TYPEINT : 'int' ;
-TYPEFLOAT : 'float' ;
 TYPESTRING : 'string' ;
 TYPEBOOLEAN : 'boolean' ;
 
 LPAREN : '(' ;
 RPAREN : ')' ;
+SEMICOLON : ';';
 COLON : ':' ;
 COMMA : ',' ;
 LBRACK : '[' ;
@@ -17,13 +17,16 @@ RBRACE : '}' ;
 IF : 'if' ;
 ELSE : 'else' ;
 WHILE : 'while' ;
-VAR : 'var' ;
+CALC : 'calc' ;
+ENUM : 'enum' ;
 EQUAL : '=' ;
+PERCENT : '%' ;
 RETURN : 'return' ;
-PRINT : 'print' ;
-FUNC : 'func' ;
 TRUE : 'true' ;
 FALSE : 'false' ;
+NULL : 'null' ;
+INC: '++';
+DEC: '--';
 SUB : '-' ;
 BANG : '!' ;
 MUL : '*' ;
@@ -38,6 +41,7 @@ GE : '>=' ;
 OR : '||' ;
 AND : '&&' ;
 DOT : ' . ' ;
+UNDERSCORE : '_' ;
 
 LINE_COMMENT        : '//' .*? ('\n'|EOF)	-> channel(HIDDEN) ;
 COMMENT             : '/*' .*? '*/' -> channel(HIDDEN) ;
@@ -45,13 +49,18 @@ COMMENT             : '/*' .*? '*/' -> channel(HIDDEN) ;
 SCRIPT_DECLARATION  : '[' SCRIPT_TYPE ',' ID ']' ;
 SCRIPT_TYPE         : 'clientscript' | 'proc' ;
 
+DEF_TYPE            : 'def_' (TYPEINT | TYPESTRING | TYPEBOOLEAN) ;
+
 LOCAL_VAR           : '$' ID ;
 CONSTANT_VAR        : '^' ID ;
 GAME_VAR            : '%' ID ;
 
 ID                  : [a-zA-Z_] [a-zA-Z0-9_]* ;
-COORD_GRID          : INT '_' INT '_' INT '_' INT '_' INT ;
+
 INT                 : [0-9]+ ;
+HEX                 : '0x' HexDigit+ ;
+COORD_GRID          : INT '_' INT '_' INT '_' INT '_' INT ;
+fragment HexDigit:             [a-fA-F0-9];
 
 STRING              :  '"' (ESC | ~["\\])* '"' ;
 fragment ESC        :   '\\' ["\bfnrt] ;
@@ -64,6 +73,6 @@ WS                  : [ \t\n\r]+ -> channel(HIDDEN) ;
  *  an IDE. The parser however should not see these bad tokens because
  *  it just confuses the issue. Hence, the hidden channel.
  */
-//ERRCHAR
-//	:	.	-> channel(HIDDEN)
-//	;
+ERRCHAR
+	:	.	-> channel(HIDDEN)
+	;

@@ -13,7 +13,7 @@ class ClientScriptColorSettingsPage : ColorSettingsPage {
         private val DESCRIPTORS = arrayOf(
             AttributesDescriptor("Header", ClientScriptSyntaxHighlighter.SCRIPT_HEADER),
             AttributesDescriptor("Variable", ClientScriptSyntaxHighlighter.VAR),
-            AttributesDescriptor("Gane Variable", ClientScriptSyntaxHighlighter.GAME_VAR),
+            AttributesDescriptor("Game Variable", ClientScriptSyntaxHighlighter.GAME_VAR),
             AttributesDescriptor("Constant", ClientScriptSyntaxHighlighter.CONSTANT_VAR),
             AttributesDescriptor("Line Comment", ClientScriptSyntaxHighlighter.LINE_COMMENT),
             AttributesDescriptor("Block Comment", ClientScriptSyntaxHighlighter.BLOCK_COMMENT),
@@ -36,10 +36,11 @@ class ClientScriptColorSettingsPage : ColorSettingsPage {
         return """/**
             | * Example script
             | */
-            |[clientscript,demo](int ${'$'}someVar)
+            |[clientscript,demo](int ${'$'}some_var)(int)
             |// Declaring a local variable
             |def_int ${'$'}var = ^max_32bit_int;
             |%some_game_var = 1;
+            |return(%some_game_var);
         """.trimMargin()
     }
 
