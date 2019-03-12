@@ -122,6 +122,7 @@ defType
 
 type
     :	TYPEINT
+    |   TYPECOORDGRID
     |   TYPESTRING
     |   TYPEBOOLEAN
     ;
