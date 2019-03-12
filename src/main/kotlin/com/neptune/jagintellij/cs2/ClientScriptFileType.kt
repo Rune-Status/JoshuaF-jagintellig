@@ -16,6 +16,6 @@ object ClientScriptFileType : LanguageFileType(ClientScriptLanguage) {
 
     override fun getDefaultExtension() = ClientScriptFileType.FILE_EXTENSION
 
-    override fun getIcon(): Icon? = IconLoader.getIcon("/com/neptune/jagintellij/jar-gray.png")
+    override fun getIcon(): Icon? = IconLoader.getIcon("/com/neptune/jagintellij/cs2.svg")
 
 }
