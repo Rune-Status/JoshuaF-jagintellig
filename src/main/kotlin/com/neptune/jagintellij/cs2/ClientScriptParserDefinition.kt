@@ -36,7 +36,7 @@ class ClientScriptParserDefinition : ParserDefinition {
 
         val FILE = IFileElementType(ClientScriptLanguage)
 
-        val COMMENTS = PSIElementTypeFactory.createTokenSet(ClientScriptLanguage, ClientScriptLexer.COMMENT, ClientScriptLexer.LINE_COMMENT)
+        val COMMENTS = PSIElementTypeFactory.createTokenSet(ClientScriptLanguage, ClientScriptLexer.BLOCK_COMMENT, ClientScriptLexer.LINE_COMMENT)
 
         val WHITESPACE = PSIElementTypeFactory.createTokenSet(ClientScriptLanguage, ClientScriptLexer.WS)
 

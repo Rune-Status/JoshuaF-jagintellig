@@ -1,6 +1,7 @@
 lexer grammar ClientScriptLexer;
 
 // Types
+// NOTE: When adding new types to front or end, must modify ClientScriptSyntaxHighlighter#typeRange
 TYPEINT : 'int' ;
 TYPECOORDGRID : 'coordgrid' ;
 TYPESTRING : 'string' ;
@@ -41,11 +42,10 @@ GT : '>' ;
 GE : '>=' ;
 OR : '||' ;
 AND : '&&' ;
-DOT : ' . ' ;
 UNDERSCORE : '_' ;
 
 LINE_COMMENT        : '//' .*? ('\n'|EOF)	-> channel(HIDDEN) ;
-COMMENT             : '/*' .*? '*/' -> channel(HIDDEN) ;
+BLOCK_COMMENT             : '/*' .*? '*/' -> channel(HIDDEN) ;
 
 SCRIPT_DECLARATION  : '[' SCRIPT_TYPE ',' ID ']' ;
 SCRIPT_TYPE         : 'clientscript' | 'proc' ;
