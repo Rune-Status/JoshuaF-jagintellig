@@ -23,6 +23,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <fileTypeFactory implementation="com.neptune.jagintellij.cs2.ClientScriptFileTypeFactory"/>
+        <annotator language="ClientScript" implementationClass="com.neptune.jagintellij.cs2.editor.ClientScriptHighlightAnnotator"/>
         <lang.parserDefinition language="ClientScript" implementationClass="com.neptune.jagintellij.cs2.ClientScriptParserDefinition"/>
         <lang.syntaxHighlighterFactory language="ClientScript" implementationClass="com.neptune.jagintellij.cs2.ClientScriptSyntaxHighlighterFactory"/>
         <lang.psiStructureViewFactory language="ClientScript" implementationClass="com.neptune.jagintellij.cs2.structview.ClientScriptStructureViewFactory"/>
