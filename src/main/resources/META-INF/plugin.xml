@@ -27,6 +27,7 @@
         <lang.syntaxHighlighterFactory language="ClientScript" implementationClass="com.neptune.jagintellij.cs2.ClientScriptSyntaxHighlighterFactory"/>
         <lang.psiStructureViewFactory language="ClientScript" implementationClass="com.neptune.jagintellij.cs2.structview.ClientScriptStructureViewFactory"/>
         <lang.commenter language="ClientScript" implementationClass="com.neptune.jagintellij.cs2.ClientScriptCommenter"/>
+        <lang.braceMatcher language="ClientScript" implementationClass="com.neptune.jagintellij.cs2.ClientScriptBraceMatcher"/>
         <colorSettingsPage implementation="com.neptune.jagintellij.cs2.ClientScriptColorSettingsPage"/>
     </extensions>
 </idea-plugin>
