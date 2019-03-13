@@ -2,6 +2,12 @@ parser grammar ClientScriptParser;
 
 @members {
 boolean inCalc = false;
+
+boolean requireCalc = false;
+
+public void setRequireCalc(boolean requireCalc) {
+    this.requireCalc = requireCalc;
+}
 }
 
 @lexer::header {package com.neptune.jagintellij.parser;}
@@ -73,12 +79,12 @@ parenthesis
 // Followings Java's operator precedence: https://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html
 // TODO multi assignment
 expr
-    :   expr op=('++' | '--')           # PostfixExpression
-    |   op=('+' | '-') expr             # UnaryExpression
-    |   expr op=('*' | '/' | '%') expr  # MultiplicativeExpression
-    |   constant                        # ScalarExpression
-    |   parenthesis                     # ParenthesisExpression
-    |   callExpr                        # CallExpression
+    :   expr op=('++' | '--')                                       # PostfixExpression
+    |   op=('+' | '-') expr                                         # UnaryExpression
+    |   expr {!requireCalc || inCalc}? op=('*' | '/' | '%') expr    # MultiplicativeExpression
+    |   constant                                                    # ScalarExpression
+    |   parenthesis                                                 # ParenthesisExpression
+    |   callExpr                                                    # CallExpression
     ;
 
 callExpr
