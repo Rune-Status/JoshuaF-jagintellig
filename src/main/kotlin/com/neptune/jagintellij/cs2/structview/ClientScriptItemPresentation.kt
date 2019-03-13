@@ -1,12 +1,8 @@
 package com.neptune.jagintellij.cs2.structview
 
 import com.intellij.navigation.ItemPresentation
-import com.intellij.openapi.diagnostic.Logger
 import com.intellij.psi.PsiElement
 import com.intellij.util.PlatformIcons
-import com.neptune.jagintellij.cs2.ClientScriptLanguage
-import org.antlr.intellij.adaptor.xpath.XPath
-import java.util.*
 import javax.swing.Icon
 
 class ClientScriptItemPresentation(private val element: PsiElement) : ItemPresentation {

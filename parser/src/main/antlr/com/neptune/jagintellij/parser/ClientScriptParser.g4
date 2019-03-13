@@ -13,7 +13,11 @@ file
     ;
 
 script
-    :   SCRIPT_DECLARATION formalArgs? formalReturns? statement*
+    :   scriptDeclaration statement*
+    ;
+
+scriptDeclaration
+    :   SCRIPT_DECLARATION formalArgs? formalReturns?
     ;
 
 formalArgs
