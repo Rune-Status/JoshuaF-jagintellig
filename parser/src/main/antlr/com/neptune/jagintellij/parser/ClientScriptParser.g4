@@ -2,6 +2,7 @@ parser grammar ClientScriptParser;
 
 @members {
 boolean inCalc = false;
+boolean inCallExpr = false;
 
 boolean requireCalc = false;
 
@@ -82,6 +83,7 @@ expr
     :   expr op=('++' | '--')                                       # PostfixExpression
     |   op=('+' | '-') expr                                         # UnaryExpression
     |   expr {!requireCalc || inCalc}? op=('*' | '/' | '%') expr    # MultiplicativeExpression
+    |   {inCallExpr}? type                                          # TypeExpression
     |   constant                                                    # ScalarExpression
     |   parenthesis                                                 # ParenthesisExpression
     |   callExpr                                                    # CallExpression
@@ -89,8 +91,7 @@ expr
 
 callExpr
     :   {!inCalc}? name=CALC {inCalc=true;} '(' exprList ')' {inCalc=false;}    # SpecialWordExpression
-    |   name=ENUM '(' inputType=type ',' outputType=type ',' expr ',' expr ')'  # SpecialWordExpression
-    |   ID ('(' exprList ')')?                                                  # NormalCallExpression
+    |   ID '(' {inCallExpr=true;} exprList {inCallExpr=false;} ')'              # NormalCallExpression
     ;
 
 constant

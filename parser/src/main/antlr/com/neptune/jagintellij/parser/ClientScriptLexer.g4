@@ -20,7 +20,6 @@ IF : 'if' ;
 ELSE : 'else' ;
 WHILE : 'while' ;
 CALC : 'calc' ;
-ENUM : 'enum' ;
 EQUAL : '=' ;
 PERCENT : '%' ;
 RETURN : 'return' ;
