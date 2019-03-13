@@ -105,9 +105,11 @@ booleanConstant
     ;
 
 numericConstant
-    :   INT         # NormalNumericConstant
-    |   HEX         # HexNumericConstant
-    |   COORD_GRID  # CoordGridNumericConstant
+    :   COORD_GRID      # CoordGridNumericConstant
+    |   INT             # NormalNumericConstant
+    |   HEX             # HexNumericConstant
+    |   INT ':' INT     # ComponentIntNumericConstant // TODO move somewhere else?
+    |   ID  ':' ID      # ComponentIdNumericConstant  // TODO move somewhere else?
     ;
 
 stringConstant
