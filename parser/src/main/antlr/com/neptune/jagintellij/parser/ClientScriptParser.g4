@@ -130,6 +130,5 @@ type
     :	TYPEINT
     |   TYPECOORDGRID
     |   TYPESTRING
-    |   TYPEBOOLEAN
+    |   TYPEBOOL
     ;
-

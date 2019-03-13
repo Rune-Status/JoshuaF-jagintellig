@@ -4,7 +4,7 @@ lexer grammar ClientScriptLexer;
 TYPEINT : 'int' ;
 TYPECOORDGRID : 'coordgrid' ;
 TYPESTRING : 'string' ;
-TYPEBOOLEAN : 'boolean' ;
+TYPEBOOL : 'bool' ;
 
 LPAREN : '(' ;
 RPAREN : ')' ;
@@ -50,7 +50,7 @@ COMMENT             : '/*' .*? '*/' -> channel(HIDDEN) ;
 SCRIPT_DECLARATION  : '[' SCRIPT_TYPE ',' ID ']' ;
 SCRIPT_TYPE         : 'clientscript' | 'proc' ;
 
-DEF_TYPE            : 'def_' (TYPEINT | TYPECOORDGRID | TYPESTRING | TYPEBOOLEAN) ;
+DEF_TYPE            : 'def_' (TYPEINT | TYPECOORDGRID | TYPESTRING | TYPEBOOL) ;
 
 LOCAL_VAR           : '$' ID ;
 CONSTANT_VAR        : '^' ID ;

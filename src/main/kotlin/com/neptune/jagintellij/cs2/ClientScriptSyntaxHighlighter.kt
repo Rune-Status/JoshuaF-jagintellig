@@ -74,7 +74,8 @@ class ClientScriptSyntaxHighlighter : SyntaxHighlighterBase() {
             ClientScriptLexer.COORD_GRID -> {
                 attrKey = CONSTANT_INT
             }
-            in ClientScriptLexer.TYPEINT..ClientScriptLexer.TYPEBOOLEAN,
+            in ClientScriptLexer.TYPEINT..ClientScriptLexer.TYPEBOOL,
+            ClientScriptLexer.CALC,
             ClientScriptLexer.RETURN,
             ClientScriptLexer.DEF_TYPE,
             ClientScriptLexer.NULL,
