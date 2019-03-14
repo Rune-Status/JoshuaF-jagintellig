@@ -66,6 +66,7 @@ BITWISE_AND : '&' ;
 AND : '&&' ;
 UNDERSCORE : '_' ;
 TILDE : '~';
+PERIOD : '.' ;
 
 LINE_COMMENT        : '//' .*? ('\n'|EOF)	-> channel(HIDDEN) ;
 BLOCK_COMMENT       : '/*' .*? '*/' -> channel(HIDDEN) ;
