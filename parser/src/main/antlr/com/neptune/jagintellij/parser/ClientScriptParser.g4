@@ -43,6 +43,7 @@ formalReturns
 statement
     :   blockStatement
     |   returnStatement
+    |   declarationStatement
     |   assignmentStatement
     |   expressionStatement
     |   emptyStatement
@@ -60,8 +61,13 @@ returnStatement
     :   RETURN ('(' exprList ')') ';'
     ;
 
-assignmentStatement
+declarationStatement
     :   defType assignableIdentifiers EQUAL expr ';'
+    ;
+
+// TODO multiple assignments
+assignmentStatement
+    : assignableIdentifiers EQUAL expr ';'
     ;
 
 expressionStatement
@@ -78,7 +84,6 @@ parenthesis
 
 // Expressions
 // Followings Java's operator precedence: https://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html
-// TODO multi assignment
 expr
     :   expr op=('++' | '--')                                       # PostfixExpression
     |   op=('+' | '-') expr                                         # UnaryExpression
