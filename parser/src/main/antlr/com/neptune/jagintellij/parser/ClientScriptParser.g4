@@ -85,7 +85,15 @@ switchStatement
     ;
 
 switchBlock
-    :   (CASE (constant | DEFAULT)+ ':')+ statement?
+    :   CASE switchCaseList ':' statement?
+    ;
+
+switchCase
+    :   (constant | DEFAULT)
+    ;
+
+switchCaseList
+    :   switchCase (',' switchCase)*
     ;
 
 expressionStatement
