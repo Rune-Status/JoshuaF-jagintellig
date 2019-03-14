@@ -112,7 +112,7 @@ expr
     |   expr {inCondition}? '||' expr                               # OrExpression
     |   expr {inCondition}? '&&' expr                               # AndExpression
     |   {inCallExpr}? type                                          # TypeExpression
-    |   assignableIdentifier                                       # AssignableExpression
+    |   assignableIdentifier                                        # AssignableExpression
     |   constant                                                    # ScalarExpression
     |   parenthesis                                                 # ParenthesisExpression
     |   callExpr                                                    # CallExpression
