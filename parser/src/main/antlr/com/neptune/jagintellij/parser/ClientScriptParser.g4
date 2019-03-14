@@ -4,6 +4,8 @@ parser grammar ClientScriptParser;
 boolean inCalc = false;
 boolean inCallExpr = false;
 
+boolean inCondition = false;
+
 boolean requireCalc = false;
 
 public void setRequireCalc(boolean requireCalc) {
@@ -43,6 +45,7 @@ formalReturns
 statement
     :   blockStatement
     |   returnStatement
+    |   ifStatement
     |   declarationStatement
     |   assignmentStatement
     |   expressionStatement
@@ -70,6 +73,10 @@ assignmentStatement
     :   assignableIdentifiers EQUAL expr ';'  # SingleAssignmentStatement
     ;
 
+ifStatement
+    :   IF {inCondition=true;} '(' expr ')' {inCondition=false;} statement*
+    ;
+
 expressionStatement
     :   expr ';'
     ;
@@ -88,8 +95,12 @@ expr
     :   op=('+' | '-') expr                                         # UnaryExpression
     |   expr {!requireCalc || inCalc}? op=('*' | '/' | '%') expr    # MultiplicativeExpression
     |   expr {!requireCalc || inCalc}? op=('+' | '-') expr          # AdditiveExpression
+    |   expr {inCondition}? op=('<' | '>' | '>=' | '<=') expr       # RelationalExpression
+    |   expr {inCondition}? op=('==' | '!=') expr                   # EqualityExpression
     |   expr {!requireCalc || inCalc}? '&' expr                     # BitwiseAndExpression
     |   expr {!requireCalc || inCalc}? '|' expr                     # BitwiseOrExpression
+    |   expr {inCondition}? '||' expr                               # OrExpression
+    |   expr {inCondition}? '&&' expr                               # AndExpression
     |   {inCallExpr}? type                                          # TypeExpression
     |   constant                                                    # ScalarExpression
     |   parenthesis                                                 # ParenthesisExpression
