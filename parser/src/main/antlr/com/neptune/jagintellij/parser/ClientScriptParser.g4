@@ -66,12 +66,12 @@ returnStatement
     ;
 
 declarationStatement
-    :   defType assignableIdentifiers EQUAL expr ';'
+    :   defType assignableIdentifier EQUAL expr ';'
     ;
 
 // TODO multiple assignments
 assignmentStatement
-    :   assignableIdentifiers EQUAL expr ';'  # SingleAssignmentStatement
+    :   assignableIdentifier EQUAL expr ';'  # SingleAssignmentStatement
     ;
 
 ifStatement
@@ -111,7 +111,7 @@ expr
     |   expr {inCondition}? '||' expr                               # OrExpression
     |   expr {inCondition}? '&&' expr                               # AndExpression
     |   {inCallExpr}? type                                          # TypeExpression
-    |   assignableIdentifiers                                       # AssignableExpression
+    |   assignableIdentifier                                       # AssignableExpression
     |   constant                                                    # ScalarExpression
     |   parenthesis                                                 # ParenthesisExpression
     |   callExpr                                                    # CallExpression
@@ -152,7 +152,7 @@ stringConstant
     :   STRING
     ;
 
-assignableIdentifiers
+assignableIdentifier
     :   LOCAL_VAR
     |   GAME_VAR
     ;
