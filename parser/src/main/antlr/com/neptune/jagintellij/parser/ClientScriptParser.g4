@@ -66,7 +66,8 @@ returnStatement
     ;
 
 declarationStatement
-    :   defType assignableIdentifier EQUAL expr ';'
+    :   defType LOCAL_VAR EQUAL expr ';'    # NormalDeclarationStatement
+    |   defType LOCAL_VAR '(' expr ')'      # ArrayDeclarationStatement
     ;
 
 // TODO multiple assignments
@@ -113,6 +114,7 @@ expr
     |   expr {inCondition}? '&&' expr                               # AndExpression
     |   {inCallExpr}? type                                          # TypeExpression
     |   assignableIdentifier                                        # AssignableExpression
+    |   LOCAL_VAR '(' expr ')'                                      # ArrayExpression
     |   constant                                                    # ScalarExpression
     |   parenthesis                                                 # ParenthesisExpression
     |   callExpr                                                    # CallExpression
