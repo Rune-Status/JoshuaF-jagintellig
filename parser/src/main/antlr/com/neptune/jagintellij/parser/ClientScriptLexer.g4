@@ -1,11 +1,23 @@
 lexer grammar ClientScriptLexer;
 
-// Types
-// NOTE: When adding new types to front or end, must modify ClientScriptSyntaxHighlighter#typeRange
-TYPEINT : 'int' ;
-TYPECOORDGRID : 'coordgrid' ;
-TYPESTRING : 'string' ;
-TYPEBOOL : 'bool' ;
+@members {
+private java.util.Set<String> types = new java.util.HashSet<>();
+private java.util.Set<String> defTypes = new java.util.HashSet<>();
+
+public ClientScriptLexer(CharStream input, java.util.Set<String> types) {
+    this(input);
+    this.types = types;
+
+    for (String type : types) {
+        defTypes.add("def_" + type);
+    }
+}
+}
+
+tokens {
+    TYPE,
+    DEF_TYPE
+}
 
 LPAREN : '(' ;
 RPAREN : ')' ;
@@ -44,18 +56,16 @@ AND : '&&' ;
 UNDERSCORE : '_' ;
 
 LINE_COMMENT        : '//' .*? ('\n'|EOF)	-> channel(HIDDEN) ;
-BLOCK_COMMENT             : '/*' .*? '*/' -> channel(HIDDEN) ;
+BLOCK_COMMENT       : '/*' .*? '*/' -> channel(HIDDEN) ;
 
 SCRIPT_DECLARATION  : '[' SCRIPT_TYPE ',' ID ']' ;
 SCRIPT_TYPE         : 'clientscript' | 'proc' ;
-
-DEF_TYPE            : 'def_' (TYPEINT | TYPECOORDGRID | TYPESTRING | TYPEBOOL) ;
 
 LOCAL_VAR           : '$' ID ;
 CONSTANT_VAR        : '^' ID ;
 GAME_VAR            : '%' ID ;
 
-ID                  : [a-zA-Z_] [a-zA-Z0-9_]* ;
+ID                  : [a-zA-Z_] [a-zA-Z0-9_]* {if(types.contains(getText())) setType(TYPE); if(defTypes.contains(getText())) setType(DEF_TYPE);} ;
 
 INT                 : [0-9]+ ;
 HEX                 : '0x' HexDigit+ ;

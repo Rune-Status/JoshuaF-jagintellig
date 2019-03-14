@@ -8,14 +8,14 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.psi.tree.IElementType
 import com.neptune.jagintellij.cs2.ClientScriptParserDefinition.Companion.tokens
 import com.neptune.jagintellij.parser.ClientScriptLexer
+import com.neptune.jagintellij.type.ScriptVarType
 import org.antlr.intellij.adaptor.lexer.ANTLRLexerAdaptor
-import org.antlr.intellij.adaptor.lexer.TokenIElementType
 import java.util.*
 
 class ClientScriptSyntaxHighlighter : SyntaxHighlighterBase() {
 
     override fun getHighlightingLexer(): Lexer {
-        val lexer = ClientScriptLexer(null)
+        val lexer = ClientScriptLexer(null, ScriptVarType.typeNames)
         return ANTLRLexerAdaptor(ClientScriptLanguage, lexer)
     }
 
@@ -27,8 +27,7 @@ class ClientScriptSyntaxHighlighter : SyntaxHighlighterBase() {
             attributes = SCRIPT_HEADER
         } else if (tokenType == tokens[ClientScriptLexer.ID]) {
             attributes = ID
-        } else if (keywords.contains(tokenType)
-            || tokenType is TokenIElementType && tokenType.antlrTokenType in typeRange) {
+        } else if (keywords.contains(tokenType)) {
             attributes = KEYWORD
         } else if (ints.contains(tokenType)) {
             attributes = CONSTANT_INT
@@ -85,19 +84,13 @@ class ClientScriptSyntaxHighlighter : SyntaxHighlighterBase() {
 
     private val keywords = Arrays.asList(
         tokens[ClientScriptLexer.TRUE], tokens[ClientScriptLexer.FALSE], tokens[ClientScriptLexer.NULL],
-        tokens[ClientScriptLexer.DEF_TYPE], tokens[ClientScriptLexer.RETURN], tokens[ClientScriptLexer.CALC],
-        tokens[ClientScriptLexer.IF], tokens[ClientScriptLexer.ELSE], tokens[ClientScriptLexer.WHILE]
+        tokens[ClientScriptLexer.TYPE], tokens[ClientScriptLexer.DEF_TYPE], tokens[ClientScriptLexer.RETURN],
+        tokens[ClientScriptLexer.CALC], tokens[ClientScriptLexer.IF], tokens[ClientScriptLexer.ELSE],
+        tokens[ClientScriptLexer.WHILE]
     )
 
     private val ints = Arrays.asList(
         tokens[ClientScriptLexer.INT], tokens[ClientScriptLexer.COORD_GRID]
     )
-
-    /**
-     * A int range containing all of the possible type tokens for types used in CS2.
-     *
-     * Note: This relies on all types being defined between the two listed below.
-     */
-    private val typeRange = ClientScriptLexer.TYPEINT..ClientScriptLexer.TYPEBOOL
 
 }

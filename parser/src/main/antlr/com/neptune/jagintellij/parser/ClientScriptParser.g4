@@ -90,8 +90,8 @@ expr
     ;
 
 callExpr
-    :   {!inCalc}? name=CALC {inCalc=true;} '(' exprList ')' {inCalc=false;}    # SpecialWordExpression
-    |   ID '(' {inCallExpr=true;} exprList {inCallExpr=false;} ')'              # NormalCallExpression
+    :   {!inCalc}? name=CALC {inCalc=true;} '(' exprList ')' {inCalc=false;}            # SpecialWordExpression
+    |   identifier=(ID | TYPE) '(' {inCallExpr=true;} exprList {inCallExpr=false;} ')'  # NormalCallExpression
     ;
 
 constant
@@ -134,8 +134,5 @@ defType
     ;
 
 type
-    :	TYPEINT
-    |   TYPECOORDGRID
-    |   TYPESTRING
-    |   TYPEBOOL
+    :	TYPE
     ;

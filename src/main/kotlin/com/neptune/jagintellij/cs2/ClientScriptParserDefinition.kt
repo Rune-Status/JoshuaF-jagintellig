@@ -16,6 +16,7 @@ import com.neptune.jagintellij.cs2.psi.ClientScriptPSIFileRoot
 import com.neptune.jagintellij.cs2.psi.ScriptSubTree
 import com.neptune.jagintellij.parser.ClientScriptLexer
 import com.neptune.jagintellij.parser.ClientScriptParser
+import com.neptune.jagintellij.type.ScriptVarType
 import org.antlr.intellij.adaptor.lexer.ANTLRLexerAdaptor
 import org.antlr.intellij.adaptor.lexer.PSIElementTypeFactory
 import org.antlr.intellij.adaptor.parser.ANTLRParserAdaptor
@@ -47,7 +48,7 @@ class ClientScriptParserDefinition : ParserDefinition {
     }
 
     override fun createLexer(project: Project): Lexer {
-        val lexer = ClientScriptLexer(null)
+        val lexer = ClientScriptLexer(null, ScriptVarType.typeNames)
         return ANTLRLexerAdaptor(ClientScriptLanguage, lexer)
     }
 
