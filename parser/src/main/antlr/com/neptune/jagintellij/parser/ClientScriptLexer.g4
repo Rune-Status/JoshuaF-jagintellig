@@ -1,8 +1,14 @@
 lexer grammar ClientScriptLexer;
 
 @members {
-private java.util.Set<String> types = new java.util.HashSet<>();
-private java.util.Set<String> defTypes = new java.util.HashSet<>();
+private java.util.Set<String> types = new java.util.HashSet<String>() {{
+    add("int");
+    add("string");
+}};
+private java.util.Set<String> defTypes = new java.util.HashSet<String>() {{
+    add("def_int");
+    add("def_string");
+}};
 
 public ClientScriptLexer(CharStream input, java.util.Set<String> types) {
     this(input);
