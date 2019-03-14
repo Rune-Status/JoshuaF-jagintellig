@@ -85,8 +85,7 @@ parenthesis
 // Expressions
 // Followings Java's operator precedence: https://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html
 expr
-    :   expr op=('++' | '--')                                       # PostfixExpression
-    |   op=('+' | '-') expr                                         # UnaryExpression
+    :   op=('+' | '-') expr                                         # UnaryExpression
     |   expr {!requireCalc || inCalc}? op=('*' | '/' | '%') expr    # MultiplicativeExpression
     |   expr {!requireCalc || inCalc}? op=('+' | '-') expr          # AdditiveExpression
     |   expr {!requireCalc || inCalc}? '&' expr                     # BitwiseAndExpression
