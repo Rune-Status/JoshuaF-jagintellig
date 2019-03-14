@@ -67,7 +67,7 @@ declarationStatement
 
 // TODO multiple assignments
 assignmentStatement
-    : assignableIdentifiers EQUAL expr ';'
+    :   assignableIdentifiers EQUAL expr ';'  # SingleAssignmentStatement
     ;
 
 expressionStatement
