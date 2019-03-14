@@ -88,6 +88,9 @@ expr
     :   expr op=('++' | '--')                                       # PostfixExpression
     |   op=('+' | '-') expr                                         # UnaryExpression
     |   expr {!requireCalc || inCalc}? op=('*' | '/' | '%') expr    # MultiplicativeExpression
+    |   expr {!requireCalc || inCalc}? op=('+' | '-') expr          # AdditiveExpression
+    |   expr {!requireCalc || inCalc}? '&' expr                     # BitwiseAndExpression
+    |   expr {!requireCalc || inCalc}? '|' expr                     # BitwiseOrExpression
     |   {inCallExpr}? type                                          # TypeExpression
     |   constant                                                    # ScalarExpression
     |   parenthesis                                                 # ParenthesisExpression

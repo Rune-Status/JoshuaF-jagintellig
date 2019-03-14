@@ -57,7 +57,9 @@ EQUAL_EQUAL : '==' ;
 NOT_EQUAL : '!=' ;
 GT : '>' ;
 GE : '>=' ;
+BITWISE_OR : '|' ;
 OR : '||' ;
+BITWISE_AND : '&' ;
 AND : '&&' ;
 UNDERSCORE : '_' ;
 
