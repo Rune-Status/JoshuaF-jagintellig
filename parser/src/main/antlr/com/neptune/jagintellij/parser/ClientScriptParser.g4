@@ -74,7 +74,7 @@ assignmentStatement
     ;
 
 ifStatement
-    :   IF {inCondition=true;} '(' expr ')' {inCondition=false;} statement*
+    :   IF {inCondition=true;} '(' expr ')' {inCondition=false;} statement (ELSE statement)?
     ;
 
 expressionStatement
