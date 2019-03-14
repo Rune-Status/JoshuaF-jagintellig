@@ -30,6 +30,7 @@ class ClientScriptParserDefinition : ParserDefinition {
     companion object {
 
         init {
+            @Suppress("DEPRECATION")
             PSIElementTypeFactory.defineLanguageIElementTypes(ClientScriptLanguage,
                 ClientScriptParser.tokenNames,
                 ClientScriptParser.ruleNames)
