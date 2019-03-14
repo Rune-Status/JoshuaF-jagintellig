@@ -9,6 +9,9 @@ private java.util.Set<String> defTypes = new java.util.HashSet<String>() {{
     add("def_int");
     add("def_string");
 }};
+private java.util.Set<String> switchTypes = new java.util.HashSet<String>() {{
+    add("switch_int");
+}};
 
 public ClientScriptLexer(CharStream input, java.util.Set<String> types) {
     this(input);
@@ -16,13 +19,18 @@ public ClientScriptLexer(CharStream input, java.util.Set<String> types) {
 
     for (String type : types) {
         defTypes.add("def_" + type);
+
+        if (!type.equals("string")) {
+            switchTypes.add("switch_" + type);
+        }
     }
 }
 }
 
 tokens {
     TYPE,
-    DEF_TYPE
+    DEF_TYPE,
+    SWITCH_TYPE
 }
 
 LPAREN : '(' ;
@@ -78,7 +86,13 @@ LOCAL_VAR           : '$' ID ;
 CONSTANT_VAR        : '^' ID ;
 GAME_VAR            : '%' ID ;
 
-ID                  : [a-zA-Z_] [a-zA-Z0-9_]* {if(types.contains(getText())) setType(TYPE); if(defTypes.contains(getText())) setType(DEF_TYPE);} ;
+ID                  : [a-zA-Z_] [a-zA-Z0-9_]*
+                    {
+                        if(types.contains(getText())) setType(TYPE);
+                        if(defTypes.contains(getText())) setType(DEF_TYPE);
+                        if(switchTypes.contains(getText())) setType(SWITCH_TYPE);
+                    }
+                    ;
 
 INT                 : [0-9]+ ;
 HEX                 : '0x' HexDigit+ ;

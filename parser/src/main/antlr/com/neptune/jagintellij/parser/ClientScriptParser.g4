@@ -81,7 +81,7 @@ ifStatement
     ;
 
 switchStatement
-    :   SWITCH parenthesis '{' switchBlock* '}'
+    :   (SWITCH | SWITCH_TYPE) parenthesis '{' switchBlock* '}'
     ;
 
 switchBlock
