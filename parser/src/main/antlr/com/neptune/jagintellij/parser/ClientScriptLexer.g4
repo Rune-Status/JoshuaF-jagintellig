@@ -62,6 +62,7 @@ OR : '||' ;
 BITWISE_AND : '&' ;
 AND : '&&' ;
 UNDERSCORE : '_' ;
+TILDE : '~';
 
 LINE_COMMENT        : '//' .*? ('\n'|EOF)	-> channel(HIDDEN) ;
 BLOCK_COMMENT       : '/*' .*? '*/' -> channel(HIDDEN) ;

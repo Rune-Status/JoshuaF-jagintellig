@@ -102,6 +102,7 @@ expr
     |   expr {inCondition}? '||' expr                               # OrExpression
     |   expr {inCondition}? '&&' expr                               # AndExpression
     |   {inCallExpr}? type                                          # TypeExpression
+    |   assignableIdentifiers                                       # AssignableExpression
     |   constant                                                    # ScalarExpression
     |   parenthesis                                                 # ParenthesisExpression
     |   callExpr                                                    # CallExpression
@@ -110,6 +111,7 @@ expr
 callExpr
     :   {!inCalc}? name=CALC {inCalc=true;} '(' exprList ')' {inCalc=false;}            # SpecialWordExpression
     |   identifier=(ID | TYPE) '(' {inCallExpr=true;} exprList {inCallExpr=false;} ')'  # NormalCallExpression
+    |   '~' ID '(' {inCallExpr=true;} exprList {inCallExpr=false;} ')'                  # ProcCallExpression
     ;
 
 constant
