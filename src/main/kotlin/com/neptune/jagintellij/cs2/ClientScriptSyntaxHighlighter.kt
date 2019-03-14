@@ -2,6 +2,7 @@ package com.neptune.jagintellij.cs2
 
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
+import com.intellij.openapi.editor.HighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
@@ -43,6 +44,8 @@ class ClientScriptSyntaxHighlighter : SyntaxHighlighterBase() {
             attributes = CONSTANT_VAR
         } else if (tokenType == tokens[ClientScriptLexer.GAME_VAR]) {
             attributes = GAME_VAR
+        } else if (tokenType == tokens[ClientScriptLexer.ERRCHAR]) {
+            attributes = HighlighterColors.BAD_CHARACTER
         } else {
             attributes = null
         }
