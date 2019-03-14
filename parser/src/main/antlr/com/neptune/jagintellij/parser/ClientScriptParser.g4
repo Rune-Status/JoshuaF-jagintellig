@@ -71,7 +71,8 @@ declarationStatement
 
 // TODO multiple assignments
 assignmentStatement
-    :   assignableIdentifier EQUAL expr ';'  # SingleAssignmentStatement
+    :   assignableIdentifier EQUAL expr ';'         # SingleAssignmentStatement
+    |   assignableIdentifierList EQUAL exprList ';' # MultiAssignmentStatement
     ;
 
 ifStatement
@@ -155,6 +156,10 @@ stringConstant
 assignableIdentifier
     :   LOCAL_VAR
     |   GAME_VAR
+    ;
+
+assignableIdentifierList
+    :   assignableIdentifier (',' assignableIdentifier)*
     ;
 
 // TODO load types differently?
