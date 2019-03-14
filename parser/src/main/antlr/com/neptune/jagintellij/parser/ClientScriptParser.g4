@@ -46,6 +46,7 @@ statement
     :   blockStatement
     |   returnStatement
     |   ifStatement
+    |   switchStatement
     |   declarationStatement
     |   assignmentStatement
     |   expressionStatement
@@ -75,6 +76,14 @@ assignmentStatement
 
 ifStatement
     :   IF {inCondition=true;} '(' expr ')' {inCondition=false;} statement (ELSE statement)?
+    ;
+
+switchStatement
+    :   SWITCH parenthesis '{' switchBlock* '}'
+    ;
+
+switchBlock
+    :   (CASE (constant | DEFAULT)+ ':')+ statement?
     ;
 
 expressionStatement

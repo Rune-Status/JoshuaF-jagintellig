@@ -89,7 +89,8 @@ class ClientScriptSyntaxHighlighter : SyntaxHighlighterBase() {
         tokens[ClientScriptLexer.TRUE], tokens[ClientScriptLexer.FALSE], tokens[ClientScriptLexer.NULL],
         tokens[ClientScriptLexer.TYPE], tokens[ClientScriptLexer.DEF_TYPE], tokens[ClientScriptLexer.RETURN],
         tokens[ClientScriptLexer.CALC], tokens[ClientScriptLexer.IF], tokens[ClientScriptLexer.ELSE],
-        tokens[ClientScriptLexer.WHILE]
+        tokens[ClientScriptLexer.WHILE], tokens[ClientScriptLexer.SWITCH], tokens[ClientScriptLexer.CASE],
+        tokens[ClientScriptLexer.DEFAULT]
     )
 
     private val ints = Arrays.asList(
