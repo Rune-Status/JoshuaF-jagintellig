@@ -87,6 +87,12 @@ LOCAL_VAR           : '$' ID ;
 CONSTANT_VAR        : '^' ID ;
 GAME_VAR            : '%' ID ;
 
+// base var types
+TYPEINT             : 'int' ;
+DEF_INT             : 'def_int' ;
+TYPESTRING          : 'string' ;
+DEF_STRING          : 'def_string' ;
+
 ID                  : [a-zA-Z_] [a-zA-Z0-9_]*
                     {
                         if(types.contains(getText())) setType(TYPE);

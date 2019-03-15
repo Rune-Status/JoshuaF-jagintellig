@@ -194,11 +194,14 @@ assignableIdentifierList
     :   assignableIdentifier (',' assignableIdentifier)*
     ;
 
-// TODO load types differently?
 defType
-    :	DEF_TYPE
+    :	DEF_INT
+    |   DEF_STRING
+    |   DEF_TYPE
     ;
 
 type
-    :	TYPE
+    :	TYPEINT
+    |   TYPESTRING
+    |   TYPE
     ;
