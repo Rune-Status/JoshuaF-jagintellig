@@ -151,9 +151,9 @@ expr
 
 callExpr
     :   {!inCalc}? name=CALC {inCalc=true;} '(' exprList ')' {inCalc=false;}                # SpecialWordExpression
-    |   identifier=(ID | TYPE) '(' {inCallExpr=true;} exprList {inCallExpr=false;} ')'      # PrimaryCallExpression
-    |   '.' ID ('(' {inCallExpr=true;} exprList {inCallExpr=false;} ')')?                   # SecondaryCallExpression
-    |   '~' ID ('(' {inCallExpr=true;} exprList {inCallExpr=false;} ')')?                   # ProcCallExpression
+    |   identifier=(ID | TYPE) '(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')'     # PrimaryCallExpression
+    |   '.' ID ('(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')')?                  # SecondaryCallExpression
+    |   '~' ID ('(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')')?                  # ProcCallExpression
     ;
 
 constant
