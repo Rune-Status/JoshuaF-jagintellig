@@ -19,6 +19,7 @@ options { tokenVocab = ClientScriptLexer; }
 
 file
     :   script*
+    |   instruction*
     ;
 
 script
@@ -27,6 +28,14 @@ script
 
 scriptDeclaration
     :   SCRIPT_DECLARATION formalArgs? formalReturns?
+    ;
+
+instruction
+    :   instructionDeclaration formalArgs? formalReturns?
+    ;
+
+instructionDeclaration
+    :   '[' INSTRUCTION ',' id=INT ',' name=(ID | TYPE | SWITCH) ']'
     ;
 
 formalArgs

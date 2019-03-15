@@ -46,6 +46,8 @@ class ClientScriptParserDefinition : ParserDefinition {
 
         val tokens: List<TokenIElementType> = PSIElementTypeFactory.getTokenIElementTypes(ClientScriptLanguage)
 
+        val rules: List<RuleIElementType> = PSIElementTypeFactory.getRuleIElementTypes(ClientScriptLanguage)
+
     }
 
     override fun createLexer(project: Project): Lexer {

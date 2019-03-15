@@ -4,9 +4,11 @@ import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.Annotator
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiRecursiveElementVisitor
+import com.neptune.jagintellij.cs2.ClientScriptParserDefinition.Companion.rules
 import com.neptune.jagintellij.cs2.ClientScriptParserDefinition.Companion.tokens
 import com.neptune.jagintellij.cs2.ClientScriptSyntaxHighlighter
 import com.neptune.jagintellij.parser.ClientScriptLexer
+import com.neptune.jagintellij.parser.ClientScriptParser
 
 class ClientScriptHighlightAnnotator : Annotator {
 
@@ -23,6 +25,12 @@ private class ClientScriptHighlightVisitor(val holder: AnnotationHolder) : PsiRe
 //        super.visitElement(element)
 
         element ?: return
+
+        // highlight instruction declarations
+        if (element.node.elementType == rules[ClientScriptParser.RULE_instructionDeclaration]) {
+            val annotation = holder.createInfoAnnotation(element, null)
+            annotation.textAttributes = ClientScriptSyntaxHighlighter.SCRIPT_HEADER
+        }
 
         // engine command highlight example
         if (element.node.elementType == tokens[ClientScriptLexer.ID] && element.node.text == "test") {

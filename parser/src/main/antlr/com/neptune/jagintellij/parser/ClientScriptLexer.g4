@@ -82,6 +82,7 @@ BLOCK_COMMENT       : '/*' .*? '*/' -> channel(HIDDEN) ;
 
 SCRIPT_DECLARATION  : '[' SCRIPT_TYPE ',' ID ']' ;
 SCRIPT_TYPE         : 'clientscript' | 'proc' ;
+INSTRUCTION         : 'instruction' ;
 
 LOCAL_VAR           : '$' ID ;
 CONSTANT_VAR        : '^' ID ;

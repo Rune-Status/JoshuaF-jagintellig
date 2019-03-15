@@ -13,6 +13,7 @@ class ClientScriptBraceMatcher : PairedBraceMatcher {
 
         private val PAIRS = arrayOf(
             BracePair(tokens[ClientScriptLexer.LPAREN], tokens[ClientScriptLexer.RPAREN], false),
+            BracePair(tokens[ClientScriptLexer.LBRACK], tokens[ClientScriptLexer.RBRACK], false),
             BracePair(tokens[ClientScriptLexer.LBRACE], tokens[ClientScriptLexer.RBRACE], true)
         )
 
