@@ -105,7 +105,7 @@ switchStatement
     ;
 
 switchBlock
-    :   CASE switchCaseList ':' statement?
+    :   CASE switchCaseList ':' statement*
     ;
 
 switchCase
