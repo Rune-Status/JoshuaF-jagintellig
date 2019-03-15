@@ -47,9 +47,10 @@ statement
     |   returnStatement
     |   ifStatement
     |   whileStatement
+    |   forStatement
     |   switchStatement
-    |   declarationStatement
-    |   assignmentStatement
+    |   declarationStatement ';' // ';' because it's used in for loop which manually specified it
+    |   assignmentStatement ';' // same as above
     |   expressionStatement
     |   emptyStatement
     ;
@@ -67,13 +68,13 @@ returnStatement
     ;
 
 declarationStatement
-    :   defType LOCAL_VAR EQUAL expr ';'    # NormalDeclarationStatement
+    :   defType LOCAL_VAR EQUAL expr        # NormalDeclarationStatement
     |   defType LOCAL_VAR '(' expr ')'      # ArrayDeclarationStatement
     ;
 
 assignmentStatement
-    :   assignableIdentifier EQUAL expr ';'         # SingleAssignmentStatement
-    |   assignableIdentifierList EQUAL exprList ';' # MultiAssignmentStatement
+    :   assignableIdentifier EQUAL expr         # SingleAssignmentStatement
+    |   assignableIdentifierList EQUAL exprList # MultiAssignmentStatement
     ;
 
 ifStatement
@@ -82,6 +83,21 @@ ifStatement
 
 whileStatement
     :   WHILE {inCondition=true;} parenthesis {inCondition=false;} statement
+    ;
+
+forStatement
+    :   FOR '(' forControl ')' statement
+    ;
+
+forControl
+    :   initializer=forInit ';'
+        {inCondition=true;} condition=expr {inCondition=false;} ';'
+        incrementer=assignmentStatement
+    ;
+
+forInit
+    :   declarationStatement
+    |   assignmentStatement
     ;
 
 switchStatement

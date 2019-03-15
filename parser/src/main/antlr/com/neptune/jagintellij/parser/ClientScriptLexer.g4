@@ -45,6 +45,7 @@ RBRACE : '}' ;
 IF : 'if' ;
 ELSE : 'else' ;
 WHILE : 'while' ;
+FOR : 'for' ;
 SWITCH : 'switch' ;
 CASE : 'case' ;
 DEFAULT : 'default' ;
