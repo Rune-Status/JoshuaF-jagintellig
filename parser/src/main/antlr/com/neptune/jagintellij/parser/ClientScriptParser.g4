@@ -46,6 +46,7 @@ statement
     :   blockStatement
     |   returnStatement
     |   ifStatement
+    |   whileStatement
     |   switchStatement
     |   declarationStatement
     |   assignmentStatement
@@ -77,6 +78,10 @@ assignmentStatement
 
 ifStatement
     :   IF {inCondition=true;} '(' expr ')' {inCondition=false;} statement (ELSE statement)?
+    ;
+
+whileStatement
+    :   WHILE {inCondition=true;} parenthesis {inCondition=false;} statement
     ;
 
 switchStatement
