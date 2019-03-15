@@ -70,7 +70,6 @@ declarationStatement
     |   defType LOCAL_VAR '(' expr ')'      # ArrayDeclarationStatement
     ;
 
-// TODO multiple assignments
 assignmentStatement
     :   assignableIdentifier EQUAL expr ';'         # SingleAssignmentStatement
     |   assignableIdentifierList EQUAL exprList ';' # MultiAssignmentStatement
