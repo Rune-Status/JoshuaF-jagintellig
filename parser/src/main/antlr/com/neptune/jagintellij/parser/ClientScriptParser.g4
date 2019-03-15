@@ -77,7 +77,7 @@ assignmentStatement
     ;
 
 ifStatement
-    :   IF {inCondition=true;} '(' expr ')' {inCondition=false;} statement (ELSE statement)?
+    :   IF {inCondition=true;} parenthesis {inCondition=false;} statement (ELSE statement)?
     ;
 
 whileStatement
