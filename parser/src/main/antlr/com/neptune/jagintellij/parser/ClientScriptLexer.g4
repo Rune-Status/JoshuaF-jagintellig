@@ -102,7 +102,7 @@ ID                  : [a-zA-Z_] [a-zA-Z0-9_]*
                     }
                     ;
 
-INT                 : [0-9]+ ;
+INT                 : SUB? [0-9]+ ;
 HEX                 : '0x' HexDigit+ ;
 COORD_GRID          : INT '_' INT '_' INT '_' INT '_' INT ;
 fragment HexDigit:             [a-fA-F0-9];
