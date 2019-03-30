@@ -77,7 +77,7 @@ returnStatement
     ;
 
 declarationStatement
-    :   defType LOCAL_VAR EQUAL expr        # NormalDeclarationStatement
+    :   defType LOCAL_VAR (EQUAL expr)?     # NormalDeclarationStatement
     |   defType LOCAL_VAR '(' expr ')'      # ArrayDeclarationStatement
     ;
 
