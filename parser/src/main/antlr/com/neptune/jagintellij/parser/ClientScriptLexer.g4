@@ -148,11 +148,19 @@ STRING_ESCAPED_CHAR : '\\' . ;
 STRING_EXPR_START   : '<' -> pushMode(DEFAULT_MODE) ;
 STRING_EXPR_END     : '>' ;
 
+STRING_ERRCHAR
+	:	.	-> channel(HIDDEN)
+	;
+
 // Handles tag attribute values inside of a string
 mode TagAttribute ;
 
 ATTRIBUTE_VALUE : ATTRIBUTE -> popMode;
 ATTRIBUTE       : ArrChars ;
+
+ATTRIBUTE_ERRCHAR
+	:	.	-> channel(HIDDEN)
+	;
 
 fragment AttChar : [0-9a-zA-Z] ;
 fragment ArrChars : AttChar+ ' '? ;
