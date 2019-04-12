@@ -96,7 +96,7 @@ class ClientScriptSyntaxHighlighter : SyntaxHighlighterBase() {
     )
 
     private val ints = Arrays.asList(
-        tokens[ClientScriptLexer.INT], tokens[ClientScriptLexer.COORD_GRID]
+        tokens[ClientScriptLexer.INT], tokens[ClientScriptLexer.COORD_GRID], tokens[ClientScriptLexer.HEX]
     )
 
 }
