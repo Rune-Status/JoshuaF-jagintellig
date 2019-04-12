@@ -143,7 +143,7 @@ expr
     :   op=('+' | '-') expr                                         # UnaryExpression
     |   expr {!requireCalc || inCalc}? op=('*' | '/' | '%') expr    # MultiplicativeExpression
     |   expr {!requireCalc || inCalc}? op=('+' | '-') expr          # AdditiveExpression
-    |   expr {inCondition}? op=(LT | GT | '>=' | '<=') expr         # RelationalExpression
+    |   expr {inCondition}? op=(LT | GT | GE | '<=') expr           # RelationalExpression
     |   expr {inCondition}? op=('==' | '!=') expr                   # EqualityExpression
     |   expr {!requireCalc || inCalc}? '&' expr                     # BitwiseAndExpression
     |   expr {!requireCalc || inCalc}? '|' expr                     # BitwiseOrExpression
