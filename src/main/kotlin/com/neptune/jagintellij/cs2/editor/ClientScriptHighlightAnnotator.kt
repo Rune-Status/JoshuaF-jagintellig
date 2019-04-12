@@ -26,6 +26,18 @@ private class ClientScriptHighlightVisitor(val holder: AnnotationHolder) : PsiRe
 
         element ?: return
 
+        // highlight string content
+        if (element.node.elementType == rules[ClientScriptParser.RULE_stringContent]) {
+            val annotation = holder.createInfoAnnotation(element, null)
+            annotation.textAttributes = ClientScriptSyntaxHighlighter.STRING
+        }
+
+        // highlight tags within strings
+        if (element.node.elementType == rules[ClientScriptParser.RULE_stringTag]) {
+            val annotation = holder.createInfoAnnotation(element, null)
+            annotation.textAttributes = ClientScriptSyntaxHighlighter.KEYWORD
+        }
+
         // highlight instruction declarations
         if (element.node.elementType == rules[ClientScriptParser.RULE_instructionDeclaration]) {
             val annotation = holder.createInfoAnnotation(element, null)

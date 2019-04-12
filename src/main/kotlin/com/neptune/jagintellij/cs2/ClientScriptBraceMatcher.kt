@@ -14,7 +14,9 @@ class ClientScriptBraceMatcher : PairedBraceMatcher {
         private val PAIRS = arrayOf(
             BracePair(tokens[ClientScriptLexer.LPAREN], tokens[ClientScriptLexer.RPAREN], false),
             BracePair(tokens[ClientScriptLexer.LBRACK], tokens[ClientScriptLexer.RBRACK], false),
-            BracePair(tokens[ClientScriptLexer.LBRACE], tokens[ClientScriptLexer.RBRACE], true)
+            BracePair(tokens[ClientScriptLexer.LBRACE], tokens[ClientScriptLexer.RBRACE], true),
+            BracePair(tokens[ClientScriptLexer.STRING_EXPR_START], tokens[ClientScriptLexer.STRING_EXPR_END], true),
+            BracePair(tokens[ClientScriptLexer.QUOTE_OPEN], tokens[ClientScriptLexer.QUOTE_CLOSE], true)
         )
 
     }

@@ -143,7 +143,7 @@ expr
     :   op=('+' | '-') expr                                         # UnaryExpression
     |   expr {!requireCalc || inCalc}? op=('*' | '/' | '%') expr    # MultiplicativeExpression
     |   expr {!requireCalc || inCalc}? op=('+' | '-') expr          # AdditiveExpression
-    |   expr {inCondition}? op=('<' | '>' | '>=' | '<=') expr       # RelationalExpression
+    |   expr {inCondition}? op=(LT | GT | '>=' | '<=') expr         # RelationalExpression
     |   expr {inCondition}? op=('==' | '!=') expr                   # EqualityExpression
     |   expr {!requireCalc || inCalc}? '&' expr                     # BitwiseAndExpression
     |   expr {!requireCalc || inCalc}? '|' expr                     # BitwiseOrExpression
@@ -153,6 +153,7 @@ expr
     |   assignableIdentifier                                        # AssignableExpression
     |   LOCAL_VAR '(' expr ')'                                      # ArrayExpression
     |   constant                                                    # ScalarExpression
+    |   interpolatedString                                          # InterpolatedStringExpression
     |   parenthesis                                                 # ParenthesisExpression
     |   callExpr                                                    # CallExpression
     |   ID                                                          # IdentiferExpression
@@ -191,7 +192,26 @@ numericConstant
     ;
 
 stringConstant
-    :   STRING
+    :   QUOTE_OPEN stringContent* QUOTE_CLOSE
+    ;
+
+interpolatedString
+    :   QUOTE_OPEN (stringContent | stringExpression)* QUOTE_CLOSE
+    ;
+
+stringContent
+    :   STRING_TEXT
+    |   STRING_ESCAPED_CHAR
+    |   stringTag
+    ;
+
+stringTag
+    :   STRING_EXPR_START tag (EQUAL ATTRIBUTE_VALUE)? STRING_EXPR_END
+    |   STRING_EXPR_START '/' tag STRING_EXPR_END
+    ;
+
+stringExpression
+    :   STRING_EXPR_START expr STRING_EXPR_END
     ;
 
 assignableIdentifier
@@ -213,4 +233,15 @@ type
     :	TYPEINT
     |   TYPESTRING
     |   TYPE
+    ;
+
+tag
+    :   TAG_COL
+    |   TAG_BR
+    |   TAG_U
+    |   TAG_STR
+    |   TAG_SHAD
+    |   TAG_IMG
+    |   TAG_GT
+    |   TAG_LT
     ;

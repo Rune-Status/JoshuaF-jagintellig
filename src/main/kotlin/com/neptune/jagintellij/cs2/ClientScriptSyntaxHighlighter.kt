@@ -32,7 +32,7 @@ class ClientScriptSyntaxHighlighter : SyntaxHighlighterBase() {
             attributes = KEYWORD
         } else if (ints.contains(tokenType)) {
             attributes = CONSTANT_INT
-        } else if (tokenType == tokens[ClientScriptLexer.STRING]) { // TODO change to list after interpolation added
+        } else if (strings.contains(tokenType)) { // TODO change to list after interpolation added
             attributes = STRING
         } else if (tokenType == tokens[ClientScriptLexer.LINE_COMMENT]) {
             attributes = LINE_COMMENT
@@ -93,6 +93,10 @@ class ClientScriptSyntaxHighlighter : SyntaxHighlighterBase() {
         tokens[ClientScriptLexer.SWITCH_TYPE], tokens[ClientScriptLexer.CASE], tokens[ClientScriptLexer.DEFAULT],
         tokens[ClientScriptLexer.TYPEINT], tokens[ClientScriptLexer.DEF_INT], tokens[ClientScriptLexer.TYPESTRING],
         tokens[ClientScriptLexer.DEF_STRING]
+    )
+
+    private val strings = Arrays.asList(
+        tokens[ClientScriptLexer.QUOTE_OPEN], tokens[ClientScriptLexer.QUOTE_CLOSE]
     )
 
     private val ints = Arrays.asList(

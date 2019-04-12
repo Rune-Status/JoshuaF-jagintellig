@@ -42,7 +42,7 @@ class ClientScriptParserDefinition : ParserDefinition {
 
         val WHITESPACE = PSIElementTypeFactory.createTokenSet(ClientScriptLanguage, ClientScriptLexer.WS)
 
-        val STRING = PSIElementTypeFactory.createTokenSet(ClientScriptLanguage, ClientScriptLexer.STRING)
+        val STRING = PSIElementTypeFactory.createTokenSet(ClientScriptLanguage, ClientScriptLexer.CHAR)
 
         val tokens: List<TokenIElementType> = PSIElementTypeFactory.getTokenIElementTypes(ClientScriptLanguage)
 

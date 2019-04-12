@@ -1,6 +1,12 @@
 lexer grammar ClientScriptLexer;
 
 @members {
+private int stringDepth = 0;
+
+boolean inString() {
+    return stringDepth > 0;
+}
+
 private java.util.Set<String> types = new java.util.HashSet<String>() {{
     add("int");
     add("string");
@@ -50,7 +56,7 @@ SWITCH : 'switch' ;
 CASE : 'case' ;
 DEFAULT : 'default' ;
 CALC : 'calc' ;
-EQUAL : '=' ;
+EQUAL : '=' {if (inString()) { pushMode(TagAttribute); }} ;
 PERCENT : '%' ;
 RETURN : 'return' ;
 TRUE : 'true' ;
@@ -67,7 +73,7 @@ LT : '<' ;
 LE : '<=' ;
 EQUAL_EQUAL : '==' ;
 NOT_EQUAL : '!=' ;
-GT : '>' ;
+GT : '>' {if (inString()) {setType(STRING_EXPR_END); popMode();}} ;
 GE : '>=' ;
 BITWISE_OR : '|' ;
 OR : '||' ;
@@ -76,6 +82,16 @@ AND : '&&' ;
 UNDERSCORE : '_' ;
 TILDE : '~';
 PERIOD : '.' ;
+
+// Tags
+TAG_BR      : {inString()}? 'br' ;
+TAG_COL     : {inString()}? 'col' ;
+TAG_STR     : {inString()}? 'str' ;
+TAG_SHAD    : {inString()}? 'shad' ;
+TAG_U       : {inString()}? 'u' ;
+TAG_IMG     : {inString()}? 'img' ;
+TAG_GT      : {inString()}? 'gt' ;
+TAG_LT      : {inString()}? 'lt' ;
 
 LINE_COMMENT        : '//' .*? ('\n'|EOF)	-> channel(HIDDEN) ;
 BLOCK_COMMENT       : '/*' .*? '*/' -> channel(HIDDEN) ;
@@ -107,8 +123,9 @@ HEX                 : '0x' HexDigit+ ;
 COORD_GRID          : INT '_' INT '_' INT '_' INT '_' INT ;
 fragment HexDigit:             [a-fA-F0-9];
 
-STRING              :  '"' (ESC | ~["\\])* '"' ;
-fragment ESC        :   '\\' ["\bfnrt] ;
+// String and char handling
+QUOTE_OPEN          : '"' {stringDepth++;} -> pushMode(LineString);
+CHAR                :  '\'' ~["\\] '\'' ;
 
 WS                  : [ \t\n\r]+ -> channel(HIDDEN) ;
 
@@ -121,3 +138,21 @@ WS                  : [ \t\n\r]+ -> channel(HIDDEN) ;
 ERRCHAR
 	:	.	-> channel(HIDDEN)
 	;
+
+// Handles string with interpolation support
+mode LineString ;
+
+QUOTE_CLOSE         : '"' {stringDepth--;} -> popMode ;
+STRING_TEXT         : ~('\\' | '"' | '<')+ ;
+STRING_ESCAPED_CHAR : '\\' . ;
+STRING_EXPR_START   : '<' -> pushMode(DEFAULT_MODE) ;
+STRING_EXPR_END     : '>' ;
+
+// Handles tag attribute values inside of a string
+mode TagAttribute ;
+
+ATTRIBUTE_VALUE : ATTRIBUTE -> popMode;
+ATTRIBUTE       : ArrChars ;
+
+fragment AttChar : [0-9a-zA-Z] ;
+fragment ArrChars : AttChar+ ' '? ;
