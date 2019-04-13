@@ -155,6 +155,7 @@ expr
     |   constant                                                    # ScalarExpression
     |   interpolatedString                                          # InterpolatedStringExpression
     |   parenthesis                                                 # ParenthesisExpression
+    |   type '(' expr ')'                                           # CastExpression
     |   callExpr                                                    # CallExpression
     |   ID                                                          # IdentiferExpression
     ;
