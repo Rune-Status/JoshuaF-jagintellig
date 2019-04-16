@@ -59,25 +59,33 @@ private class ClientScriptHighlightVisitor(val holder: AnnotationHolder) : PsiRe
             annotation.textAttributes = ClientScriptSyntaxHighlighter.SCRIPT_HEADER
         }
 
-        // var references highlighting
-        if (element.node.elementType == rules[ClientScriptParser.RULE_var]) {
-            val prefix = element.text[0]
+        // local var highlight
+        if (element.node.elementType == rules[ClientScriptParser.RULE_localVarReference]) {
+            val annotation = holder.createInfoAnnotation(element, null)
+            annotation.textAttributes = ClientScriptSyntaxHighlighter.VAR
+        }
 
-            if (prefix in arrayOf('^', '%', '$')) {
-                val annotation = holder.createInfoAnnotation(element, null)
+        // local array var highlight
+        if (element.node.elementType == rules[ClientScriptParser.RULE_localArrayVarReference]) {
+            val identifier = element.node.findChildByType(rules[ClientScriptParser.RULE_identifier])?.psi
 
-                when(prefix) {
-                    '^' -> {
-                        annotation.textAttributes = ClientScriptSyntaxHighlighter.CONSTANT_VAR
-                    }
-                    '%' -> {
-                        annotation.textAttributes = ClientScriptSyntaxHighlighter.GAME_VAR
-                    }
-                    '$' -> {
-                        annotation.textAttributes = ClientScriptSyntaxHighlighter.VAR
-                    }
-                }
+            if (identifier != null) {
+                val range = TextRange.create(element.textOffset, identifier.textOffset + identifier.textLength)
+                val annotation = holder.createInfoAnnotation(range, null)
+                annotation.textAttributes = ClientScriptSyntaxHighlighter.VAR
             }
+        }
+
+        // game var highlight
+        if (element.node.elementType == rules[ClientScriptParser.RULE_gameVarReference]) {
+            val annotation = holder.createInfoAnnotation(element, null)
+            annotation.textAttributes = ClientScriptSyntaxHighlighter.GAME_VAR
+        }
+
+        // constant highlight
+        if (element.node.elementType == rules[ClientScriptParser.RULE_constantReference]) {
+            val annotation = holder.createInfoAnnotation(element, null)
+            annotation.textAttributes = ClientScriptSyntaxHighlighter.CONSTANT_VAR
         }
 
         // constant value example

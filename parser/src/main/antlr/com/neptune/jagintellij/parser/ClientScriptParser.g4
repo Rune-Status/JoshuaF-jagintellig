@@ -35,7 +35,7 @@ formalArgs
     ;
 
 formalArg
-    :   type var
+    :   type localVarReference
     ;
 
 formalReturns
@@ -69,13 +69,13 @@ returnStatement
     ;
 
 declarationStatement
-    :   defType var (EQUAL expr)?   # NormalDeclarationStatement
-    |   defType var '(' expr ')'    # ArrayDeclarationStatement
+    :   defType localVarReference (EQUAL expr)? # NormalDeclarationStatement
+    |   defType localVarReference '(' expr ')'  # ArrayDeclarationStatement
     ;
 
 assignmentStatement
-    :   var EQUAL expr          # SingleAssignmentStatement
-    |   varList EQUAL exprList  # MultiAssignmentStatement
+    :   assignableVar EQUAL expr            # SingleAssignmentStatement
+    |   assignableVarList EQUAL exprList    # MultiAssignmentStatement
     ;
 
 ifStatement
@@ -142,8 +142,10 @@ expr
     |   expr {inCondition}? '||' expr                               # OrExpression
     |   expr {inCondition}? '&&' expr                               # AndExpression
     |   {inCallExpr}? type                                          # TypeExpression
-    |   var                                                         # VarExpression
-    |   var '(' expr ')'                                            # ArrayVarExpression
+    |   localVarReference                                           # VarExpression
+    |   localArrayVarReference                                      # VarExpression
+    |   gameVarReference                                            # VarExpression
+    |   constantReference                                           # VarExpression
     |   constant                                                    # ScalarExpression
     |   interpolatedString                                          # InterpolatedStringExpression
     |   parenthesis                                                 # ParenthesisExpression
@@ -208,12 +210,30 @@ stringExpression
     :   STRING_EXPR_START expr STRING_EXPR_END
     ;
 
-var
-    :   prefix=(DOLLAR | CARET | PERCENT) identifier
+assignableVar
+    :   localVarReference
+    |   localArrayVarReference
+    |   gameVarReference
     ;
 
-varList
-    :   var (',' var)*
+localVarReference
+    :   DOLLAR identifier
+    ;
+
+localArrayVarReference
+    :   DOLLAR identifier '(' expr ')'
+    ;
+
+gameVarReference
+    :   PERCENT identifier
+    ;
+
+constantReference
+    :   CARET identifier
+    ;
+
+assignableVarList
+    :   assignableVar (',' assignableVar)*
     ;
 
 identifier
