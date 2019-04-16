@@ -153,10 +153,12 @@ expr
     ;
 
 callExpr
-    :   {!inCalc}? name=CALC {inCalc=true;} '(' exprList ')' {inCalc=false;}        # SpecialWordExpression
-    |   identifier '(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')'         # PrimaryCallExpression
-    |   '.' identifier ('(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')')?  # SecondaryCallExpression
-    |   '~' identifier ('(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')')?  # ProcCallExpression
+    :   {!inCalc}? name=CALC {inCalc=true;} '(' exprList ')' {inCalc=false;}                # SpecialWordExpression
+    |   name=DEBUG '(' exprList ')'                                                         # SpecialWordExpression
+    |   name=RUNELITE_CALLBACK '(' event=stringConstant (',' exprList)? ')' formalReturns?  # SpecialWordExpression
+    |   identifier '(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')'                 # PrimaryCallExpression
+    |   '.' identifier ('(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')')?          # SecondaryCallExpression
+    |   '~' identifier ('(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')')?          # ProcCallExpression
     ;
 
 constant
@@ -217,6 +219,9 @@ varList
 identifier
     :   ID
     |   type
+    |   RETURN
+    |   SWITCH
+    |   RUNELITE_CALLBACK
     ;
 
 defType

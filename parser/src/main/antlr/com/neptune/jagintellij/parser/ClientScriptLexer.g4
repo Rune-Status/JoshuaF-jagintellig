@@ -56,6 +56,8 @@ SWITCH : 'switch' ;
 CASE : 'case' ;
 DEFAULT : 'default' ;
 CALC : 'calc' ;
+DEBUG : 'debug' ;
+RUNELITE_CALLBACK : 'runelite_callback' ;
 EQUAL : '=' {if (inString()) { pushMode(TagAttribute); }} ;
 PERCENT : '%' ;
 RETURN : 'return' ;
