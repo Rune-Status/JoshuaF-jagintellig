@@ -24,9 +24,9 @@ class ClientScriptSyntaxHighlighter : SyntaxHighlighterBase() {
         val attributes: TextAttributesKey?
 
         @Suppress("CascadeIf")
-        if (tokenType == tokens[ClientScriptLexer.SCRIPT_DECLARATION]) {
+        /*if (tokenType == tokens[ClientScriptLexer.SCRIPT_DECLARATION]) {
             attributes = SCRIPT_HEADER
-        } else if (tokenType == tokens[ClientScriptLexer.ID]) {
+        } else */if (tokenType == tokens[ClientScriptLexer.ID]) {
             attributes = ID
         } else if (keywords.contains(tokenType)) {
             attributes = KEYWORD
@@ -38,13 +38,13 @@ class ClientScriptSyntaxHighlighter : SyntaxHighlighterBase() {
             attributes = LINE_COMMENT
         } else if (tokenType == tokens[ClientScriptLexer.BLOCK_COMMENT]) {
             attributes = BLOCK_COMMENT
-        } else if (tokenType == tokens[ClientScriptLexer.LOCAL_VAR]) {
+        }/* else if (tokenType == tokens[ClientScriptLexer.LOCAL_VAR]) {
             attributes = VAR
         } else if (tokenType == tokens[ClientScriptLexer.CONSTANT_VAR]) {
             attributes = CONSTANT_VAR
         } else if (tokenType == tokens[ClientScriptLexer.GAME_VAR]) {
             attributes = GAME_VAR
-        } else if (tokenType == tokens[ClientScriptLexer.ERRCHAR]) {
+        }*/ else if (tokenType == tokens[ClientScriptLexer.ERRCHAR]) {
             attributes = HighlighterColors.BAD_CHARACTER
         } else {
             attributes = null

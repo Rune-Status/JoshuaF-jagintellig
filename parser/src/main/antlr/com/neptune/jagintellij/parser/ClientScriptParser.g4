@@ -23,19 +23,11 @@ file
     ;
 
 script
-    :   scriptDeclaration statement*
-    ;
-
-scriptDeclaration
-    :   SCRIPT_DECLARATION formalArgs? formalReturns?
+    :   '[' trigger=identifier ',' name=identifier ']' formalArgs? formalReturns? statement*
     ;
 
 instruction
-    :   instructionDeclaration formalArgs? formalReturns?
-    ;
-
-instructionDeclaration
-    :   '[' INSTRUCTION ',' id=INT ',' name=(ID | TYPE | SWITCH) ']'
+    :   '[' INSTRUCTION ',' id=INT ',' name=identifier ']' formalArgs? formalReturns?
     ;
 
 formalArgs
@@ -43,7 +35,7 @@ formalArgs
     ;
 
 formalArg
-    :   type LOCAL_VAR
+    :   type var
     ;
 
 formalReturns
@@ -77,13 +69,13 @@ returnStatement
     ;
 
 declarationStatement
-    :   defType LOCAL_VAR (EQUAL expr)?     # NormalDeclarationStatement
-    |   defType LOCAL_VAR '(' expr ')'      # ArrayDeclarationStatement
+    :   defType var (EQUAL expr)?   # NormalDeclarationStatement
+    |   defType var '(' expr ')'    # ArrayDeclarationStatement
     ;
 
 assignmentStatement
-    :   assignableIdentifier EQUAL expr         # SingleAssignmentStatement
-    |   assignableIdentifierList EQUAL exprList # MultiAssignmentStatement
+    :   var EQUAL expr          # SingleAssignmentStatement
+    |   varList EQUAL exprList  # MultiAssignmentStatement
     ;
 
 ifStatement
@@ -150,26 +142,25 @@ expr
     |   expr {inCondition}? '||' expr                               # OrExpression
     |   expr {inCondition}? '&&' expr                               # AndExpression
     |   {inCallExpr}? type                                          # TypeExpression
-    |   assignableIdentifier                                        # AssignableExpression
-    |   LOCAL_VAR '(' expr ')'                                      # ArrayExpression
+    |   var                                                         # VarExpression
+    |   var '(' expr ')'                                            # ArrayVarExpression
     |   constant                                                    # ScalarExpression
     |   interpolatedString                                          # InterpolatedStringExpression
     |   parenthesis                                                 # ParenthesisExpression
     |   type '(' expr ')'                                           # CastExpression
     |   callExpr                                                    # CallExpression
-    |   ID                                                          # IdentiferExpression
+    |   identifier                                                  # IdentiferExpression
     ;
 
 callExpr
-    :   {!inCalc}? name=CALC {inCalc=true;} '(' exprList ')' {inCalc=false;}                # SpecialWordExpression
-    |   identifier=(ID | TYPE) '(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')'     # PrimaryCallExpression
-    |   '.' ID ('(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')')?                  # SecondaryCallExpression
-    |   '~' ID ('(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')')?                  # ProcCallExpression
+    :   {!inCalc}? name=CALC {inCalc=true;} '(' exprList ')' {inCalc=false;}        # SpecialWordExpression
+    |   identifier '(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')'         # PrimaryCallExpression
+    |   '.' identifier ('(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')')?  # SecondaryCallExpression
+    |   '~' identifier ('(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')')?  # ProcCallExpression
     ;
 
 constant
     :   NULL
-    |   CONSTANT_VAR
     |   literalConstant
     ;
 
@@ -185,11 +176,11 @@ booleanConstant
     ;
 
 numericConstant
-    :   COORD_GRID      # CoordGridNumericConstant
-    |   INT             # NormalNumericConstant
-    |   HEX             # HexNumericConstant
-    |   INT ':' INT     # ComponentIntNumericConstant // TODO move somewhere else?
-    |   ID  ':' ID      # ComponentIdNumericConstant  // TODO move somewhere else?
+    :   COORD_GRID                  # CoordGridNumericConstant
+    |   INT                         # NormalNumericConstant
+    |   HEX                         # HexNumericConstant
+    |   INT ':' INT                 # ComponentIntNumericConstant // TODO move somewhere else?
+    |   identifier  ':' identifier  # ComponentIdNumericConstant  // TODO move somewhere else?
     ;
 
 stringConstant
@@ -215,13 +206,17 @@ stringExpression
     :   STRING_EXPR_START expr STRING_EXPR_END
     ;
 
-assignableIdentifier
-    :   LOCAL_VAR
-    |   GAME_VAR
+var
+    :   prefix=(DOLLAR | CARET | PERCENT) identifier
     ;
 
-assignableIdentifierList
-    :   assignableIdentifier (',' assignableIdentifier)*
+varList
+    :   var (',' var)*
+    ;
+
+identifier
+    :   ID
+    |   type
     ;
 
 defType

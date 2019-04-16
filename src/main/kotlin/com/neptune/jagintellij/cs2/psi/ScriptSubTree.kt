@@ -12,7 +12,7 @@ import org.antlr.intellij.adaptor.psi.ScopeNode
 class ScriptSubTree(node: ASTNode, idElementType: IElementType) : IdentifierDefSubtree(node, idElementType), ScopeNode {
 
     override fun resolve(element: PsiNamedElement?): PsiElement? {
-        return SymtabUtils.resolve(this, ClientScriptLanguage, element, "/file/script/SCRIPT_DECLARATION")
+        return SymtabUtils.resolve(this, ClientScriptLanguage, element, "/file/script")
     }
 
 }

@@ -42,7 +42,7 @@ open class ClientScriptStructureViewElement(protected val element: PsiElement) :
 
     override fun getChildren(): Array<TreeElement> {
         if (element is ClientScriptPSIFileRoot) {
-            val funcs = XPath.findAll(ClientScriptLanguage, element, "/file/script/scriptDeclaration")
+            val funcs = XPath.findAll(ClientScriptLanguage, element, "/file/script")
             val treeElements = ArrayList<TreeElement>(funcs.size)
             for (el in funcs) {
                 treeElements.add(ClientScriptStructureViewElement(el))

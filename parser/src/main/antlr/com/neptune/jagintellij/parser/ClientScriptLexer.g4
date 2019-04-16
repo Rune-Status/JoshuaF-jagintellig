@@ -82,6 +82,8 @@ AND : '&&' ;
 UNDERSCORE : '_' ;
 TILDE : '~';
 PERIOD : '.' ;
+DOLLAR : '$' ;
+CARET: '^' ;
 
 // Tags
 TAG_BR      : {inString()}? 'br' ;
@@ -96,13 +98,7 @@ TAG_LT      : {inString()}? 'lt' ;
 LINE_COMMENT        : '//' .*? ('\n'|EOF)	-> channel(HIDDEN) ;
 BLOCK_COMMENT       : '/*' .*? '*/' -> channel(HIDDEN) ;
 
-SCRIPT_DECLARATION  : '[' SCRIPT_TYPE ',' ID ']' ;
-SCRIPT_TYPE         : 'clientscript' | 'proc' ;
 INSTRUCTION         : 'instruction' ;
-
-LOCAL_VAR           : '$' ID ;
-CONSTANT_VAR        : '^' ID ;
-GAME_VAR            : '%' ID ;
 
 // base var types
 TYPEINT             : 'int' ;
