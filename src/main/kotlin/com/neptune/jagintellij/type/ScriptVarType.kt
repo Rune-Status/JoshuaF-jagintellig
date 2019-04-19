@@ -7,18 +7,23 @@ enum class ScriptVarType(
     val charKey: Char,
     val fullName: String,
     val defaultValue: Any,
-    val baseVarType: BaseVarType = BaseVarType.INTEGER
+    val baseVarType: BaseVarType = BaseVarType.INTEGER,
+    val useable: Boolean = true
 ) {
+    NULL('\u0000', "null", -1, useable = false),
+    TYPE('\u0001', "type", -1),
+    VARP('\u0002', "varp", -1),
+    VARBIT('\u0003', "varbit", -1),
+    VARC('\u0004', "varc", -1),
     INTEGER('i', "int", 0),
-    BOOLEAN('1', "boolean", 0),
-    BOOL('1', "bool", 0),
+    BOOLEAN('1', "bool", 0),
     SEQ('A', "seq", -1),
     COMPONENT('I', "component", -1),
     IDKIT('K', "idkit", -1),
     MIDI('M', "midi", -1),
     SYNTH('P', "synth", -1),
     STAT('S', "stat", -1),
-    COORDGRID('c', "coordgrid", -1),
+    COORD('c', "coord", -1),
     GRAPHIC('d', "graphic", -1),
     FONTMETRICS('f', "fontmetrics", -1),
     ENUM('g', "enum", -1),
@@ -36,7 +41,7 @@ enum class ScriptVarType(
     CHAR('z', "char", -1),
     MAPELEMENT('µ', "mapelement", -1),
     HITMARK('×', "hitmark", -1),
-    STRUCT('J', "struct", -1),;
+    STRUCT('J', "struct", -1);
 
     companion object {
 
@@ -53,7 +58,7 @@ enum class ScriptVarType(
         /**
          * A set of all the types names.
          */
-        val typeNames = values().map { it.fullName.toLowerCase() }.toSet()
+        val typeNames = values().filter { it.useable }.map { it.fullName.toLowerCase() }.toSet()
 
         /**
          * Gets the [ScriptVarType] based on the char key.
