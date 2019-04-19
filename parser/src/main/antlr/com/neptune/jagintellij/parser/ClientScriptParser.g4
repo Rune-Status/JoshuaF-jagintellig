@@ -102,19 +102,26 @@ forInit
     ;
 
 switchStatement
-    :   (SWITCH | SWITCH_TYPE) parenthesis '{' switchBlock* '}'
+    :   (SWITCH | SWITCH_TYPE) parenthesis '{' caseClause* '}'
     ;
 
-switchBlock
-    :   CASE switchCaseList ':' statement*
+caseClause
+    :   CASE (DEFAULT | caseClauseExpressionList) ':' statement*
     ;
 
-switchCase
-    :   (constant | DEFAULT)
+caseClauseExpression
+    :   constant
+    |   identifier
+    |   constantReference
+    |   caseClauseCastExpression
     ;
 
-switchCaseList
-    :   switchCase (',' switchCase)*
+caseClauseExpressionList
+    :   caseClauseExpression (',' caseClauseExpression)*
+    ;
+
+caseClauseCastExpression
+    :   type '(' caseClauseExpression ')'
     ;
 
 expressionStatement
