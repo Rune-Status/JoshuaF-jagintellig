@@ -158,6 +158,7 @@ expr
     |   parenthesis                                                 # ParenthesisExpression
     |   type '(' expr ')'                                           # CastExpression
     |   callExpr                                                    # CallExpression
+    |   {inCallExpr}? '&' hookExpression                            # HookRefExpression
     |   identifier                                                  # IdentiferExpression
     ;
 
@@ -241,6 +242,11 @@ constantReference
 
 assignableVarList
     :   assignableVar (',' assignableVar)*
+    ;
+
+hookExpression
+    :   identifier ('(' args=exprList? ')')? ('{' triggers=exprList '}')?
+    |   NULL ('(' ')')?
     ;
 
 identifier
