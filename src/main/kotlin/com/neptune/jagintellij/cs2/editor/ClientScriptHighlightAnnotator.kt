@@ -88,6 +88,46 @@ private class ClientScriptHighlightVisitor(val holder: AnnotationHolder) : PsiRe
             annotation.textAttributes = ClientScriptSyntaxHighlighter.CONSTANT_VAR
         }
 
+        // highlight command calls
+        if (element.node.elementType == rules[ClientScriptParser.RULE_commandCallExpr]) {
+            val identifier = element.node.findChildByType(rules[ClientScriptParser.RULE_identifier])?.psi
+
+            if (identifier != null) {
+                val range = TextRange.create(element.textOffset, identifier.textOffset + identifier.textLength)
+                val annotation = holder.createInfoAnnotation(range, null)
+                annotation.textAttributes = ClientScriptSyntaxHighlighter.COMMAND_CALL
+            }
+        }
+
+        // highlight secondary command calls
+        if (element.node.elementType == rules[ClientScriptParser.RULE_secondaryCommandCallExpr]) {
+            val identifier = element.node.findChildByType(rules[ClientScriptParser.RULE_identifier])?.psi
+
+            if (identifier != null) {
+                val range = TextRange.create(element.textOffset - 1, identifier.textOffset + identifier.textLength)
+                val annotation = holder.createInfoAnnotation(range, null)
+                annotation.textAttributes = ClientScriptSyntaxHighlighter.COMMAND_CALL
+            }
+        }
+
+        // highlight proc calls
+        if (element.node.elementType == rules[ClientScriptParser.RULE_procCallExpr]) {
+            val identifier = element.node.findChildByType(rules[ClientScriptParser.RULE_identifier])?.psi
+
+            if (identifier != null) {
+                val range = TextRange.create(element.textOffset - 1, identifier.textOffset + identifier.textLength)
+                val annotation = holder.createInfoAnnotation(range, null)
+                annotation.textAttributes = ClientScriptSyntaxHighlighter.PROC_CALL
+            }
+        }
+
+        // highlight identifiers
+        if (element.node.elementType == rules[ClientScriptParser.RULE_identifier]
+            && element.parent.node.elementType == rules[ClientScriptParser.RULE_expr]) {
+            val annotation = holder.createInfoAnnotation(element, null)
+            annotation.textAttributes = ClientScriptSyntaxHighlighter.IDENTIFIER
+        }
+
         // constant value example
 //        if (element.node.elementType == tokens[ClientScriptLexer.CONSTANT_VAR] && element.node.text == "^max_32bit_int") {
 //            holder.createInfoAnnotation(element, "2,147,483,647")
@@ -114,14 +154,6 @@ private class ClientScriptHighlightVisitor(val holder: AnnotationHolder) : PsiRe
                 holder.createWarningAnnotation(element, "Y in map must be [0,63].")
             } else {
                 holder.createInfoAnnotation(element, "$absX, $absY, $level")
-            }
-        }
-
-        // engine command highlight example
-        if (element.parent?.node?.elementType == rules[ClientScriptParser.RULE_expr]) {
-            if (element.node.elementType == rules[ClientScriptParser.RULE_identifier] && element.node.text == "test") {
-                val annotation = holder.createInfoAnnotation(element, null)
-                annotation.textAttributes = ClientScriptSyntaxHighlighter.KEYWORD
             }
         }
     }

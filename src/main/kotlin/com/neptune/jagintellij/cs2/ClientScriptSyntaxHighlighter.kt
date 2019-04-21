@@ -83,6 +83,15 @@ class ClientScriptSyntaxHighlighter : SyntaxHighlighterBase() {
         val BLOCK_COMMENT = createTextAttributesKey("CLIENTSCRIPT_BLOCK_COMMENT",
             DefaultLanguageHighlighterColors.BLOCK_COMMENT)
 
+        val COMMAND_CALL = createTextAttributesKey("CLIENTSCRIPT_COMMAND_CALL",
+            DefaultLanguageHighlighterColors.FUNCTION_CALL)
+
+        val PROC_CALL = createTextAttributesKey("CLIENTSCRIPT_PROC_CALL",
+            DefaultLanguageHighlighterColors.FUNCTION_CALL)
+
+        val IDENTIFIER = createTextAttributesKey("CLIENTSCRIPT_IDENTIFIER",
+            DefaultLanguageHighlighterColors.IDENTIFIER)
+
     }
 
     private val keywords = Arrays.asList(

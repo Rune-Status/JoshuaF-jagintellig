@@ -166,9 +166,21 @@ callExpr
     :   {!inCalc}? name=CALC {inCalc=true;} '(' exprList ')' {inCalc=false;}                # SpecialWordExpression
     |   name=DEBUG '(' exprList ')'                                                         # SpecialWordExpression
     |   name=RUNELITE_CALLBACK '(' event=stringConstant (',' exprList)? ')' formalReturns?  # SpecialWordExpression
-    |   identifier '(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')'                 # PrimaryCallExpression
-    |   '.' identifier ('(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')')?          # SecondaryCallExpression
-    |   '~' identifier ('(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')')?          # ProcCallExpression
+    |   commandCallExpr                                                                     # PrimaryCallExpression
+    |   secondaryCommandCallExpr                                                            # SecondaryCallExpression
+    |   procCallExpr                                                                        # ProcCallExpression
+    ;
+
+commandCallExpr
+    :   identifier '(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')'
+    ;
+
+secondaryCommandCallExpr
+    :   '.' identifier ('(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')')?
+    ;
+
+procCallExpr
+    :   '~' identifier ('(' {inCallExpr=true;} exprList? {inCallExpr=false;} ')')?
     ;
 
 constant
