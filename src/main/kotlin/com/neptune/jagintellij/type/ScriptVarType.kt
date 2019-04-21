@@ -41,7 +41,8 @@ enum class ScriptVarType(
     CHAR('z', "char", -1),
     MAPELEMENT('µ', "mapelement", -1),
     HITMARK('×', "hitmark", -1),
-    STRUCT('J', "struct", -1);
+    STRUCT('J', "struct", -1),
+    INTERFACE('a', "interface", -1);
 
     companion object {
 
