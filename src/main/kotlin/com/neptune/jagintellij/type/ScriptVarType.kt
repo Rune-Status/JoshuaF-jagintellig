@@ -16,7 +16,7 @@ enum class ScriptVarType(
     VARBIT('\u0003', "varbit", -1),
     VARC('\u0004', "varc", -1),
     INTEGER('i', "int", 0),
-    BOOLEAN('1', "bool", 0),
+    BOOLEAN('1', "boolean", 0),
     SEQ('A', "seq", -1),
     COMPONENT('I', "component", -1),
     IDKIT('K', "idkit", -1),
