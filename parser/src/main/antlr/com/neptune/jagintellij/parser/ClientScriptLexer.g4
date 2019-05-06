@@ -75,7 +75,7 @@ LT : '<' ;
 LE : '<=' ;
 EQUAL_EQUAL : '==' ;
 NOT_EQUAL : '!=' ;
-GT : '>' {if (inString()) {setType(STRING_EXPR_END); popMode();}} ;
+GT : '>' {if (inString()) {setType(STRING_EXPR_END); pushMode(LineString);}} ;
 GE : {!inString()}? '>=' ;
 BITWISE_OR : '|' ;
 OR : '||' ;
