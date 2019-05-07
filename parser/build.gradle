@@ -1,0 +1,17 @@
+apply plugin: 'antlr'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    antlr("org.antlr:antlr4:$antlr4Version") { // use ANTLR version 4
+        exclude group:'com.ibm.icu', module:'icu4j'
+    }
+    testCompile("junit:junit:4.+")
+}
+
+tasks.generateGrammarSource {
+    outputDirectory = new File("${project.buildDir}/generated-src/antlr/main/com/neptune/jagintellij/parser")
+    arguments += ["-package", "com.neptune.jagintellij.parser", "-visitor", "-Xexact-output-dir"]
+}

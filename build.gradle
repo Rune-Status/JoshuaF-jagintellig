@@ -1,97 +1,56 @@
-plugins {
-    id 'java'
-    id 'idea'
-    id 'org.jetbrains.intellij' version '0.3.11'
-    id 'org.jetbrains.kotlin.jvm' version '1.2.51'
-    id "org.jetbrains.grammarkit" version "2018.2"
+buildscript {
+    repositories {
+        mavenCentral()
+    }
 }
 
-import org.jetbrains.grammarkit.tasks.*
+plugins {
+    id "org.jetbrains.intellij" version "0.4.7"
+    id "org.jetbrains.kotlin.jvm" version "1.3.21"
+}
 
-def genRoot = file('src/main/gen')
+wrapper {
+    gradleVersion = '5.2.1'
+}
 
 group 'com.neptune'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+apply plugin: 'kotlin'
+apply plugin: 'org.jetbrains.intellij'
+
+compileJava {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+intellij {
+    version = ideaVersion
+
+    pluginName 'jagintellij'
+    downloadSources true
+    updateSinceUntilBuild false
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib"
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile(project(":parser"))
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: '1.3.21'
+    implementation 'org.antlr:antlr4-intellij-adaptor:0.1'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
-// add the generated files to the java source set
-sourceSets.main.java.srcDirs += genRoot
-
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.6"
-}
-
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.6"
-}
-
-intellij {
-    version '2018.2.4'
-    pluginName 'jagintellij'
-}
-
-idea {
-    module {
-        generatedSourceDirs += genRoot
-    }
-}
-
-patchPluginXml {
-    changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.8.1'
-}
-
-task generateJagConfigParser(type: GenerateParser) {
-    // source bnf file
-    source = "src/main/kotlin/com/neptune/jagintellij/JagConfig.bnf"
-
-    // optional, task-specific root for the generated files. Default: none
-    targetRoot = 'src/main/gen'
-
-    // path to a parser file, relative to the targetRoot
-    pathToParser = '/com/neptune/jagintellij/parser/JagConfigParserGenerated.java'
-
-    // path to a directory with generated psi files, relative to the targetRoot
-    pathToPsiRoot = '/com/neptune/jagintellij/psi'
-
-    // if set, plugin will remove a parser output file and psi output directory before generating new ones. Default: false
-    purgeOldFiles = true
-}
-
-task generateJagConfigLexer(type: GenerateLexer) {
-    dependsOn generateJagConfigParser
-
-    // source flex file
-    source = "src/main/kotlin/com/neptune/jagintellij/JagConfig.flex"
-
-    // target directory for lexer
-    targetDir = "src/main/gen/com/neptune/jagintellij/lexer/"
-
-    // target classname, target file will be targetDir/targetClass.java
-    targetClass = "JagConfigLexer"
-
-    // optional, path to the task-specific skeleton file. Default: none
-//    skeleton = '/some/specific/skeleton'
-
-    // if set, plugin will remove a lexer output file before generating new one. Default: false
-    purgeOldFiles = true
-}
-
-compileKotlin {
-    dependsOn generateJagConfigLexer
-}
+//generateGrammarSource {
+//    arguments += ["-package", "com.neptune.jagintellij.parser", "-Xexact-output-dir"]
+//}

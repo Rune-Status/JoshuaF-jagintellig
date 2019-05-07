@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+  <defs>
+    <path id="cs2-b" d="M4,10.75 L4,10 L4.75,10 L4.75,10.75 L4,10.75 Z M4,8.5 L4,7.75 L4.75,7.75 L4.75,8.5 L4,8.5 Z M1.75,11.5 L1.75,10.75 L1,10.75 L1,7.75 L1.75,7.75 L1.75,7 L4,7 L4,7.75 L2.5,7.75 L2.5,10.75 L4,10.75 L4,11.5 L1.75,11.5 Z M5.5,11.5 L5.5,10.75 L8.5,10.75 L8.5,9.25 L6.25,9.25 L6.25,8.5 L5.5,8.5 L5.5,7.75 L6.25,7.75 L6.25,7 L10,7 L10,7.75 L7,7.75 L7,8.5 L9.25,8.5 L9.25,9.25 L10,9.25 L10,10.75 L9.25,10.75 L9.25,11.5 L5.5,11.5 Z M10.75,11.5 L10.75,8.5 L11.5,8.5 L11.5,7.75 L12.25,7.75 L12.25,7 L13.75,7 L13.75,4.75 L12.25,4.75 L12.25,5.5 L10.75,5.5 L10.75,4.75 L11.5,4.75 L11.5,4 L14.5,4 L14.5,4.75 L15.25,4.75 L15.25,7 L14.5,7 L14.5,7.75 L13,7.75 L13,8.5 L12.25,8.5 L12.25,10.75 L15.25,10.75 L15.25,11.5 L10.75,11.5 Z"/>
+    <filter id="cs2-a" width="103.5%" height="113.3%" x="-1.8%" y="-3.3%" filterUnits="objectBoundingBox">
+      <feOffset dy=".5" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feColorMatrix in="shadowOffsetOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 1 0"/>
+    </filter>
+  </defs>
+  <g fill="none">
+    <use fill="#000" filter="url(#cs2-a)" xlink:href="#cs2-b"/>
+    <use fill="#E7E516" xlink:href="#cs2-b"/>
+  </g>
+</svg>

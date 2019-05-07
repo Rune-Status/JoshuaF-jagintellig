@@ -10,4 +10,4 @@ out/
 *.class
 
 # Generated files
-src/main/gen
+parser/src/main/gen

@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.neptune.jagintellij</id>
     <name>jagintellij</name>
-    <vendor email="dummy" url="dummy">dummy</vendor>
+    <vendor email="joshua@filby.me" url="https://filby.me">Joshua Filby</vendor>
 
     <description><![CDATA[
     A plugin adding support for Jagex file types.
@@ -9,18 +9,27 @@
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
-    <!-- uncomment to enable plugin in all products
     <depends>com.intellij.modules.lang</depends>
-    -->
 
-    <extensions defaultExtensionNs="com.intellij">
-        <fileTypeFactory implementation="com.neptune.jagintellij.JagConfigFileTypeFactory"/>
-        <lang.parserDefinition language="JagConfig" implementationClass="com.neptune.jagintellij.JagConfigParserDefinition"/>
-        <lang.syntaxHighlighterFactory language="JagConfig" implementationClass="com.neptune.jagintellij.JagConfigSyntaxHighlighterFactory"/>
-        <colorSettingsPage implementation="com.neptune.jagintellij.JagConfigColorSettingsPage"/>
-    </extensions>
+    <project-components>
+        <component>
+            <implementation-class>com.neptune.jagintellij.JagIntellijController</implementation-class>
+        </component>
+    </project-components>
 
     <actions>
         <!-- Add your actions here -->
     </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileTypeFactory implementation="com.neptune.jagintellij.cs2.ClientScriptFileTypeFactory"/>
+        <colorProvider implementation="com.neptune.jagintellij.cs2.editor.ClientScriptColorProvider" />
+        <annotator language="ClientScript" implementationClass="com.neptune.jagintellij.cs2.editor.ClientScriptHighlightAnnotator"/>
+        <lang.parserDefinition language="ClientScript" implementationClass="com.neptune.jagintellij.cs2.ClientScriptParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="ClientScript" implementationClass="com.neptune.jagintellij.cs2.ClientScriptSyntaxHighlighterFactory"/>
+        <lang.psiStructureViewFactory language="ClientScript" implementationClass="com.neptune.jagintellij.cs2.structview.ClientScriptStructureViewFactory"/>
+        <lang.commenter language="ClientScript" implementationClass="com.neptune.jagintellij.cs2.ClientScriptCommenter"/>
+        <lang.braceMatcher language="ClientScript" implementationClass="com.neptune.jagintellij.cs2.ClientScriptBraceMatcher"/>
+        <colorSettingsPage implementation="com.neptune.jagintellij.cs2.ClientScriptColorSettingsPage"/>
+    </extensions>
 </idea-plugin>
