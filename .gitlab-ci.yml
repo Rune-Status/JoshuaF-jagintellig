@@ -1,0 +1,30 @@
+image: openjdk:8-jdk
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - mkdir -p $GRADLE_USER_HOME
+  - chmod +x ./gradlew
+
+cache:
+  key: "$CI_COMMIT_REF_NAME"
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+
+stages:
+  - build
+  - test
+
+compileJava:
+  stage: build
+  script:
+    - ./gradlew assemble
+  artifacts:
+    untracked: false
+    paths:
+      - build/distributions/*.zip
+
+test:
+  stage: test
+  script:
+    - ./gradlew test
