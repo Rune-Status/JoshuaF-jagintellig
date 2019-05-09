@@ -157,7 +157,7 @@ expr
     ;
 
 callExpr
-    :   {!inCalc}? name=CALC {inCalc=true;} '(' exprList ')' {inCalc=false;}                # SpecialWordExpression
+    :   {!inCalc}? name=CALC {inCalc=true;} '(' expr ')' {inCalc=false;}                    # SpecialWordExpression
     |   name=DEBUG '(' exprList ')'                                                         # SpecialWordExpression
     |   name=RUNELITE_CALLBACK '(' event=stringConstant (',' exprList)? ')' formalReturns?  # SpecialWordExpression
     |   commandCallExpr                                                                     # PrimaryCallExpression
