@@ -25,7 +25,7 @@ instruction
     ;
 
 formalArgs
-    :   '(' formalArg (',' formalArg)* ')'
+    :   '(' formalArg? (',' formalArg)* ')'
     ;
 
 formalArg
@@ -33,7 +33,7 @@ formalArg
     ;
 
 formalReturns
-    :   '(' type (',' type)* ')'
+    :   '(' type? (',' type)* ')'
     ;
 
 // Statements
