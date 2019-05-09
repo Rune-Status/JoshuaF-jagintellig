@@ -108,7 +108,7 @@ DEF_INT             : 'def_int' ;
 TYPESTRING          : 'string' ;
 DEF_STRING          : 'def_string' ;
 
-ID                  : [a-zA-Z_] [a-zA-Z0-9_]*
+ID                  : [0-9]* [a-zA-Z_] [a-zA-Z0-9_]*
                     {
                         if(types.contains(getText())) setType(TYPE);
                         if(defTypes.contains(getText())) setType(DEF_TYPE);
