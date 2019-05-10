@@ -108,7 +108,11 @@ DEF_INT             : 'def_int' ;
 TYPESTRING          : 'string' ;
 DEF_STRING          : 'def_string' ;
 
-ID                  : [a-zA-Z_] [a-zA-Z0-9_]*
+// must be above ID since it matches the ID pattern
+HEX                 : '0x' HexDigit+ ;
+COORD_GRID          : Digit+ '_' Digit+ '_' Digit+ '_' Digit+ '_' Digit+ ;
+
+ID                  : [0-9]* [a-zA-Z_] [a-zA-Z0-9_]*
                     {
                         if(types.contains(getText())) setType(TYPE);
                         if(defTypes.contains(getText())) setType(DEF_TYPE);
@@ -116,10 +120,10 @@ ID                  : [a-zA-Z_] [a-zA-Z0-9_]*
                     }
                     ;
 
-INT                 : SUB? [0-9]+ ;
-HEX                 : '0x' HexDigit+ ;
-COORD_GRID          : INT '_' INT '_' INT '_' INT '_' INT ;
-fragment HexDigit:             [a-fA-F0-9];
+INT                 : SUB? Digit+ ;
+
+fragment HexDigit   : [a-fA-F0-9];
+fragment Digit      : [0-9];
 
 // String and char handling
 QUOTE_OPEN          : '"' {stringDepth++;} -> pushMode(LineString);

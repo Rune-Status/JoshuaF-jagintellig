@@ -5,12 +5,6 @@ boolean inCalc = false;
 boolean inCallExpr = false;
 
 boolean inCondition = false;
-
-boolean requireCalc = false;
-
-public void setRequireCalc(boolean requireCalc) {
-    this.requireCalc = requireCalc;
-}
 }
 
 @lexer::header {package com.neptune.jagintellij.parser;}
@@ -31,7 +25,7 @@ instruction
     ;
 
 formalArgs
-    :   '(' formalArg (',' formalArg)* ')'
+    :   '(' formalArg? (',' formalArg)* ')'
     ;
 
 formalArg
@@ -39,7 +33,7 @@ formalArg
     ;
 
 formalReturns
-    :   '(' type (',' type)* ')'
+    :   '(' type? (',' type)* ')'
     ;
 
 // Statements
@@ -140,14 +134,14 @@ parenthesis
 // Followings Java's operator precedence: https://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html
 expr
     :   op=('+' | '-') expr                                         # UnaryExpression
-    |   expr {!requireCalc || inCalc}? op=('*' | '/' | '%') expr    # MultiplicativeExpression
-    |   expr {!requireCalc || inCalc}? op=('+' | '-') expr          # AdditiveExpression
+    |   expr {inCalc}? op=('*' | '/' | '%') expr                    # MultiplicativeExpression
+    |   expr {inCalc}? op=('+' | '-') expr                          # AdditiveExpression
     |   expr {inCondition}? op=(LT | GT | GE | '<=') expr           # RelationalExpression
-    |   expr {inCondition}? op=('==' | '!=') expr                   # EqualityExpression
-    |   expr {!requireCalc || inCalc}? '&' expr                     # BitwiseAndExpression
-    |   expr {!requireCalc || inCalc}? '|' expr                     # BitwiseOrExpression
-    |   expr {inCondition}? '||' expr                               # OrExpression
-    |   expr {inCondition}? '&&' expr                               # AndExpression
+    |   expr {inCondition}? op=('=' | '!') expr                     # EqualityExpression
+    |   expr {inCalc}? '&' expr                                     # BitwiseAndExpression
+    |   expr {inCalc}? '|' expr                                     # BitwiseOrExpression
+    |   expr {inCondition}? '|' expr                                # OrExpression
+    |   expr {inCondition}? '&' expr                                # AndExpression
     |   {inCallExpr}? type                                          # TypeExpression
     |   localVarReference                                           # VarExpression
     |   localArrayVarReference                                      # VarExpression
@@ -163,7 +157,7 @@ expr
     ;
 
 callExpr
-    :   {!inCalc}? name=CALC {inCalc=true;} '(' exprList ')' {inCalc=false;}                # SpecialWordExpression
+    :   {!inCalc}? name=CALC {inCalc=true;} '(' expr ')' {inCalc=false;}                    # SpecialWordExpression
     |   name=DEBUG '(' exprList ')'                                                         # SpecialWordExpression
     |   name=RUNELITE_CALLBACK '(' event=stringConstant (',' exprList)? ')' formalReturns?  # SpecialWordExpression
     |   commandCallExpr                                                                     # PrimaryCallExpression
@@ -267,6 +261,8 @@ identifier
     |   RETURN
     |   SWITCH
     |   RUNELITE_CALLBACK
+    |   TRUE
+    |   FALSE
     ;
 
 defType

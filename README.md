@@ -8,9 +8,7 @@ An IntelliJ IDEA plugin that adds support for different RuneScape file types.
 ## ClientScript 2
 ClientScript 2 is the scripting format that is used in higher revision clients 
 (~414+). See [RuneStar/cs2](https://github.com/RuneStar/cs2#readme) for more 
-information on how the syntax works. This project is setup to use comparison
-operators that most people would be use to instead. Instead of `$var ! null`
-this uses `$var != null`.
+information on how the syntax works.
 
 <p align="center">
   <img src="https://gitlab.com/neptune-ps/jagintellig/raw/master/images/cs2.png" 
